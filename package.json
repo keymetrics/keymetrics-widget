@@ -1,0 +1,26 @@
+{
+  "name": "keymetrics-widget",
+  "version": "1.0.0",
+  "description": "Monitoring widget",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/keymetrics/keymetrics-widget.git",
+  "keywords": [
+    "keymetrics-widget",
+    "keymetrics",
+    "widget",
+    "pm2",
+    "monitoring"
+  ],
+  "author": "Jimi M",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "keymetrics-api": "^1.3.0",
+    "menubar": "^5.2.2"
+  }
+}
