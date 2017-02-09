@@ -1,11 +1,42 @@
 const {ipcRenderer} = require('electron')
 
+var settings = () => {
+  var settings = document.getElementById('settings');
+
+  if (settings.style.display === 'none') {
+    settings.style.display = 'block';
+  }
+  else {
+    settings.style.display = 'none';
+  }
+}
+
+var saveSettings = () => {
+  var tokens = {
+    token: document.getElementById('token').value,
+    public_key: document.getElementById('public_key').value
+  };
+  document.getElementById('servers').innerHTML = '';
+  ipcRenderer.send('saveSettings', tokens);
+}
+
+document.getElementById('settings-logo').addEventListener('click', () => {
+  settings();
+});
+
+document.getElementById('save').addEventListener('click', () => {
+  saveSettings();
+});
+
+
 var servers = [];
 var serverElement = null;
 var processElement = null;
 var probElement = null;
+var i;
 
 ipcRenderer.on('data', (event, arg) => {
+  i = 1;
   for(var server in arg.apps_server) {
     if (servers.indexOf(server) === -1) {
       servers.push(server);
@@ -19,13 +50,14 @@ ipcRenderer.on('data', (event, arg) => {
     }
 
     serverElement.innerHTML = `
-      <div class="name">${server}</div>
+      <div class="server-name"><img src="assets/server.svg"> Server #${i} - ${server} <img src="assets/arrow.svg"></div>
       <div id="${server}" class="processes">
       </div>
     `;
+    i++;
 
     var processes = [];
-    for (var process in arg.apps_server[server]) { 
+    for (var process in arg.apps_server[server]) {
       if (processes.indexOf(process) === -1) {
         processes.push(process);
         processElement = document.createElement('div');
