@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="6px" viewBox="0 0 6 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Oval</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#CD2626" offset="0%"></stop>
+            <stop stop-color="#E07D26" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-5" transform="translate(-259.000000, -680.000000)" fill="url(#linearGradient-1)">
+            <g id="server" transform="translate(190.000000, 35.000000)">
+                <g id="Group-8-Copy" transform="translate(47.000000, 629.000000)">
+                    <g id="Group-7" transform="translate(6.000000, 0.000000)">
+                        <circle id="Oval" cx="19" cy="19" r="3"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

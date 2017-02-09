@@ -6,12 +6,20 @@
     <link rel="stylesheet" type="text/css" href="master.css">
   </head>
   <body>
-    <header>
+    <div class="rectangle">
       <div class="title">Processes :</div>
-      <div class="settings">
-        <img src="settings.svg" class="settings-logo">
+      <div id="settings-logo" class="settings-logo">
+        <img src="assets/settings.svg">
       </div>
-    </header>
+    </div>
+    <div id="settings" class="settings">
+      <p>
+        To get token and public_key, visit <a href="https://app.keymetrics.io/" target="_blank">Keymetrics</a>
+      </p>
+      <input id="token" type="text" placeholder="token"><br>
+      <input id="public_key" type="text" placeholder="public_key"><br>
+      <button id="save">Save</button>
+    </div>
     <div id="servers" class="servers">
     </div>
     <script type="text/javascript">

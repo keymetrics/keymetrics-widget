@@ -5,13 +5,14 @@ html, body {
 	padding: 0px;
 	background: #fff;
 	color: #333;
-	font-family: sans-serif;
+	font-family: BlenderPro, sans-serif;
 }
 
-header {
-	height: 20px;
-	background: #333;
-	padding: 10px;
+.rectangle {
+	padding: 6px;
+	width: calc(100% - 12px);
+	height: 17.5px;
+	background-color: #000000;
 	display: flex;
 	justify-content: space-between;
 	color: #fff;
@@ -21,16 +22,46 @@ header {
 	font-size: 
 }
 
-.settings {
+.settings-logo {
 	cursor: pointer;
 }
 
-.servers {
+.settings {
+	display: none;
+	position: absolute;
+	top: 40px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.8);
 	padding: 10px;
 	height: calc(100% - 60px);
 	width: calc(100% - 20px);
 	overflow-y: auto;
 	overflow-x: hidden;
+	text-align: center;
+}
+
+.settings p {
+	color: #fff;
+}
+
+.settings a {
+	color: #398f87;
+}
+
+.servers {
+	height: calc(100% - 40px);
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.server-name {
+	padding: 10px;
+	width: calc(100% - 20px);
+	height: 23px;
+	background: #131517;
+	color: #fff;
+	border: solid 0.5px #000000;
 }
 
 .process {
