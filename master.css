@@ -3,16 +3,19 @@ html, body {
 	height: 100vh;
 	margin: 0px;
 	padding: 0px;
-	background: #fff;
-	color: #333;
+	background: #0e0c13;
+	color: #fff;
 	font-family: BlenderPro, sans-serif;
 }
 
 .rectangle {
-	padding: 6px;
-	width: calc(100% - 12px);
-	height: 17.5px;
-	background-color: #000000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 30px;
+	font-size: 15px;
+	background: #000;
 	display: flex;
 	justify-content: space-between;
 	color: #fff;
@@ -29,12 +32,12 @@ html, body {
 .settings {
 	display: none;
 	position: absolute;
-	top: 40px;
+	top: 0px;
 	left: 0px;
 	background: rgba(0, 0, 0, 0.8);
 	padding: 10px;
-	height: calc(100% - 60px);
-	width: calc(100% - 20px);
+	height: 100%;
+	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 	text-align: center;
@@ -49,7 +52,8 @@ html, body {
 }
 
 .servers {
-	height: calc(100% - 40px);
+	margin-top: 30px;
+	height: 100%;
 	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -61,28 +65,61 @@ html, body {
 	height: 23px;
 	background: #131517;
 	color: #fff;
-	border: solid 0.5px #000000;
+	border: solid 0.5px #000;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.server-name div {
+	align-self: flex-start;
+}
+
+.server-name-title {
+	display: flex;
+}
+
+.server-name-title div {
+	margin-right: 10px;
 }
 
 .process {
-	width: calc(100% - 10px);
-	background: #efefef;
-	margin-bottom: 10px;
-	border-radius: 4px;
-	padding: 5px;
+	width: 100%;
+	color: #fff;
 }
 
-.name {
-	border-bottom: 1px solid #dfdfdf;
-	margin-bottom: 10px;
+.process-name {
+	padding: 10px;
+	width: calc(100% - 20px);
+	height: 17.5px;
+	background-color: #2f3338;
+	border: solid 0.5px #000;
+	display: flex;
+	justify-content: space-between;
 }
 
 .probs {
-	display: flex;
-	flex-wrap: wrap;
+	
 }
 
 .probs div {
-	margin: 5px;
-	padding: 5px;
+	background: rgb(31, 34, 37);
+	border-bottom: 1px solid #000;
+	height: 150px;
+}
+
+.cpu {
+	display: flex;
+	justify-content: space-between;
+}
+
+.title {
+	margin: 10px;
+}
+
+.value {
+	margin: 10px;
+	font-size: 30px;
+	-webkit-mask-image: -webkit-linear-gradient(to bottom, #26e089, #26cce0);
+	-webkit-mask-image: linear-gradient(to bottom, #26e089, #26cce0);
 }

@@ -50,7 +50,13 @@ ipcRenderer.on('data', (event, arg) => {
     }
 
     serverElement.innerHTML = `
-      <div class="server-name"><img src="assets/server.svg"> Server #${i} - ${server} <img src="assets/arrow.svg"></div>
+      <div class="server-name">
+        <div class="server-name-title">
+          <div><img src="assets/server.svg"></div>
+          <div>Server #${i} - ${server}</div>
+        </div>
+        <div><img src="assets/arrow.svg"></div>
+      </div>
       <div id="${server}" class="processes">
       </div>
     `;
@@ -70,31 +76,38 @@ ipcRenderer.on('data', (event, arg) => {
       }
 
       processElement.innerHTML = `
-        <div class="name">${process}</div>
+        <div class="process-name">
+          <div><img src="assets/online.svg"></div>
+          <div>${process}</div>
+          <div><img src="assets/arrow.svg"></div>
+        </div>
         <div class="probs">
-          <div class="cpu">${arg.mini_metrics[server][process].cpu} %</div>
+          <div class="cpu">
+            <div class="title">CPU</div>
+            <div class="value">${arg.mini_metrics[server][process].cpu} %</div>
+          </div>
           <div class="mem">${arg.mini_metrics[server][process].mem} MB</div>
           <div id="${process}"></div>
         </div>
       `;
 
-      var probs = [];
-      for (var prob in arg.apps_server[server][process].axm_monitor) { 
-        if (probs.indexOf(prob) === -1) {
-          probs.push(prob);
-          probElement = document.createElement('div');
-          probElement.setAttribute('id', prob);
-          probElement.setAttribute('class', 'prob');
-          document.getElementById(process).appendChild(probElement);
-        }
-        else {
-          probElement = document.getElementById(prob);
-        }
+      // var probs = [];
+      // for (var prob in arg.apps_server[server][process].axm_monitor) { 
+      //   if (probs.indexOf(prob) === -1) {
+      //     probs.push(prob);
+      //     probElement = document.createElement('div');
+      //     probElement.setAttribute('id', prob);
+      //     probElement.setAttribute('class', 'prob');
+      //     document.getElementById(process).appendChild(probElement);
+      //   }
+      //   else {
+      //     probElement = document.getElementById(prob);
+      //   }
 
-        probElement.innerHTML = `
-          <div id="${prob}">${prob} : ${arg.apps_server[server][process].axm_monitor[prob].value}</div>
-        `;
-      }
+      //   probElement.innerHTML = `
+      //     <div id="${prob}">${prob} : ${arg.apps_server[server][process].axm_monitor[prob].value}</div>
+      //   `;
+      // }
     }
   }
 })
