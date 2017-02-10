@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    
+
     <head>
         <link rel="stylesheet" href="main.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
@@ -13,58 +13,50 @@
                 myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        //labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8'],
                         datasets: [
                             {
                                 type: 'line',
-                                label: 'Line Component',
                                 lineTension: 0,
                                 pointRadius: 0,
-                                fill: false,
-                                backgroundColor: "rgba(75,192,192,0.4)"
-                                //data: [30, 80, 10, 20, 50, 90, 10, 30]
+                                fill: false
                             }
                         ]
                     },
                     options: {
                         linearGradientLine: true,
                         legend: {
-                          display: false  
+                          display: false
                         },
                         scales: {
                             xAxes: [{
-                                //type: 'time',
                                 display: false,
-                                ticks: {
-                                    //autoSkip: true,
-                                    //maxTicksLimit: 10
-                                }
+                                ticks: {}
                             }],
                             yAxes: [{
                                 display: false,
                                 ticks: {
-                                    beginAtZero: true,   // minimum value will be 0.
+                                    beginAtZero: true,
                                     max: 100
                                 }
                             }]
                         }
                     }
                 });
-                
+
                 setInterval(() => {
-                    /*if (myChart.data.datasets[0].data.length > 10) {
+                    if (myChart.data.datasets[0].data.length > 11) {
                         myChart.data.datasets[0].data.shift();
                         myChart.data.labels.shift();
-                    }*/
+                    }
                     myChart.data.datasets[0].data.push(Math.random() * 100);
                     myChart.data.labels.push(Math.floor(new Date()));
                     myChart.options.scales.xAxes[0].ticks.min = myChart.data.labels[myChart.data.labels.length - 10];
                     myChart.options.scales.xAxes[0].ticks.max = Math.floor(new Date());
                     myChart.update();
                 }, 1000)
-                
-                
-                
+
+
+
                 var gradientLinePlugin = {
                   // Called at start of update.
                   beforeUpdate: function(chartInstance) {
@@ -107,6 +99,6 @@
     </head>
     <body>
         <div style="width:400px;height:50px"><canvas id="myChart" style="width:400px;height:50px"></canvas></div>
-        
+
     </body>
 </html>
