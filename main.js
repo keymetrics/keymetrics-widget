@@ -9,6 +9,7 @@ var tokens;
 var mb = menubar({
   width: 350,
   height: 600,
+  resizable: false,
   icon: './assets/iconTemplate.png',
   preloadWindow: true
 });

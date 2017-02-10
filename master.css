@@ -1,125 +1,250 @@
+/* Fonts */
+
+@font-face {
+    font-family: 'BlenderProThin';
+    src: url('./assets/fonts/BlenderProThin.ttf');
+}
+@font-face {
+    font-family: 'BlenderProMedium';
+    src: url('./assets/fonts/BlenderProMedium.ttf');
+}
+@font-face {
+    font-family: 'BlenderProHeavy';
+    src: url('./assets/fonts/BlenderProHeavy.ttf');
+}
+
+/* All */
+
 html, body {
-	width: 100vw;
-	height: 100vh;
-	margin: 0px;
-	padding: 0px;
-	background: #0e0c13;
-	color: #fff;
-	font-family: BlenderPro, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    background: #000 url("./assets/pattern.png");
+    font-family: 'BlenderProMedium', sans-serif;
 }
 
-.rectangle {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 30px;
-	font-size: 15px;
-	background: #000;
-	display: flex;
-	justify-content: space-between;
-	color: #fff;
+/* Login and Settings */
+
+.logo {
+  margin-top: 70px;
+  margin-bottom: 60px;
+  text-align: center;
 }
 
-.title {
-	font-size: 
+.logo img {
+  height: 40px;
 }
 
-.settings-logo {
-	cursor: pointer;
+.text {
+  text-align: center;
+  color: #fff;
+  margin: 15px auto;
+  max-width: 220px;
+  font-family: 'BlenderProThin', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
 }
 
-.settings {
-	display: none;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	background: rgba(0, 0, 0, 0.8);
-	padding: 10px;
-	height: 100%;
-	width: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-	text-align: center;
+.text a {
+  color: #2398d8;
 }
 
-.settings p {
-	color: #fff;
+.form {
+  text-align: center;
 }
 
-.settings a {
-	color: #398f87;
+.form input {
+  outline: none;
+  border: none;
+  width: calc(220px - 20px);
+  height: 35px;
+  line-height: 35px;
+  padding: 0px;
+  border-radius: 4px;
+  background: #efefef;
+  margin-bottom: 15px;
+  padding: 0px 10px;
+  font-family: 'BlenderProMedium', sans-serif;
+  font-weight: 500;
+  font-size: 17px;
 }
 
-.servers {
-	margin-top: 30px;
-	height: 100%;
-	width: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
+.form button {
+  margin-top: 15px;
+  width: 100px;
+  background: #26a9e0;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 10px;
+  color: #fff;
+  font-family: 'BlenderProMedium', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-.server-name {
-	padding: 10px;
-	width: calc(100% - 20px);
-	height: 23px;
-	background: #131517;
-	color: #fff;
-	border: solid 0.5px #000;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.box {
+  background: #000;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  padding: 10px;
+  font-family: 'BlenderProThin', sans-serif;
+  font-weight: 900;
+  font-size: 14px; 
 }
 
-.server-name div {
-	align-self: flex-start;
+.box-close {
+  margin-top: 2px;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
 }
 
-.server-name-title {
-	display: flex;
+.quit {
+  margin: 40px auto 0px auto;
+  width: 220px;
+  color: #fff;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: 'BlenderProMedium', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
 }
 
-.server-name-title div {
-	margin-right: 10px;
+/* Servers */
+
+.server-header {
+  padding: 10px;
+  background: #131517;
+  border: solid 0.5px #000000;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.process {
-	width: 100%;
-	color: #fff;
+.server-header-title {
+  margin-top: 1px;
+  display: flex;
 }
 
-.process-name {
-	padding: 10px;
-	width: calc(100% - 20px);
-	height: 17.5px;
-	background-color: #2f3338;
-	border: solid 0.5px #000;
-	display: flex;
-	justify-content: space-between;
+.server-header-logo {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  margin-right: 10px;
 }
 
-.probs {
-	
+.server-header-name {
+  font-family: 'BlenderProThin', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
 }
 
-.probs div {
-	background: rgb(31, 34, 37);
-	border-bottom: 1px solid #000;
-	height: 150px;
+.server-header-arrow {
+  width: 12px;
+  height: 12px;
 }
 
-.cpu {
-	display: flex;
-	justify-content: space-between;
+/* Processes */
+
+.process-header {
+  padding: 10px;
+  background: #2f3338;
+  border: solid 0.5px #000000;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.title {
-	margin: 10px;
+.process-header-title {
+  display: flex;
 }
 
-.value {
-	margin: 10px;
-	font-size: 30px;
-	-webkit-mask-image: -webkit-linear-gradient(to bottom, #26e089, #26cce0);
-	-webkit-mask-image: linear-gradient(to bottom, #26e089, #26cce0);
+.process-header-logo {
+  width: 6px;
+  height: 6px;
+  margin-top: -1px;
+  margin-right: 10px;
+}
+
+.process-header-name {
+  font-family: 'BlenderProThin', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.process-header-arrow {
+  width: 12px;
+  height: 12px;
+}
+
+/* Probs */
+
+.prob {
+  background: #1f2225;
+  height: 125px;
+  width: calc(100% - 40px);
+  color: #fff;
+  padding: 20px 20px 0px 20px;
+  border-bottom: 1px solid #000;
+}
+
+.prob-logo {
+  position: relative;
+  top: 2px;
+  left: -70px;
+  width: 100px;
+}
+
+.prob-infos {
+  position: relative;
+  top: -110px;
+  left: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.prob-name {
+  font-family: 'BlenderProThin', sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.prob-value {
+  font-family: 'BlenderProThin', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+}
+
+/* Color gradient */
+
+.greenGradient {
+  background: -webkit-linear-gradient(#26e089, #26cce0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.redGradient {
+  background: -webkit-linear-gradient(#cd2626, #e07d26);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Graph */
+
+.prob-graph {
+  position: relative;
+  top: -70px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: 40px;
+}
+
+.prob-chart {
+  width: 100%;
+  height: 40px;
 }

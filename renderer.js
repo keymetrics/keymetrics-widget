@@ -51,10 +51,7 @@ ipcRenderer.on('data', (event, arg) => {
 
     serverElement.innerHTML = `
       <div class="server-name">
-        <div class="server-name-title">
-          <div><img src="assets/server.svg"></div>
-          <div>Server #${i} - ${server}</div>
-        </div>
+        <div class="server-name-title"><img src="assets/server.svg"> Server #${i} - ${server}</div>
         <div><img src="assets/arrow.svg"></div>
       </div>
       <div id="${server}" class="processes">
