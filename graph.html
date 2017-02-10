@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            var myChart
+            $(document).ready(() => {
+                var ctx = document.getElementById("myChart");
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        //labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8'],
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Line Component',
+                                lineTension: 0,
+                                pointRadius: 0,
+                                fill: false,
+                                backgroundColor: "rgba(75,192,192,0.4)"
+                                //data: [30, 80, 10, 20, 50, 90, 10, 30]
+                            }
+                        ]
+                    },
+                    options: {
+                        linearGradientLine: true,
+                        legend: {
+                          display: false  
+                        },
+                        scales: {
+                            xAxes: [{
+                                //type: 'time',
+                                display: false,
+                                ticks: {
+                                    //autoSkip: true,
+                                    //maxTicksLimit: 10
+                                }
+                            }],
+                            yAxes: [{
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,   // minimum value will be 0.
+                                    max: 100
+                                }
+                            }]
+                        }
+                    }
+                });
+                
+                setInterval(() => {
+                    /*if (myChart.data.datasets[0].data.length > 10) {
+                        myChart.data.datasets[0].data.shift();
+                        myChart.data.labels.shift();
+                    }*/
+                    myChart.data.datasets[0].data.push(Math.random() * 100);
+                    myChart.data.labels.push(Math.floor(new Date()));
+                    myChart.options.scales.xAxes[0].ticks.min = myChart.data.labels[myChart.data.labels.length - 10];
+                    myChart.options.scales.xAxes[0].ticks.max = Math.floor(new Date());
+                    myChart.update();
+                }, 1000)
+                
+                
+                
+                var gradientLinePlugin = {
+                  // Called at start of update.
+                  beforeUpdate: function(chartInstance) {
+                    if (chartInstance.options.linearGradientLine) {
+                      // The context, needed for the creation of the linear gradient.
+                      var ctx = chartInstance.chart.ctx;
+                      // The first (and, assuming, only) dataset.
+                      var dataset = chartInstance.data.datasets[0];
+                      // Calculate min and max values of the dataset.
+                      var minValue = Number.MAX_VALUE;
+                      var maxValue = Number.MIN_VALUE;
+                      for (var i = 0; i < dataset.data.length; ++i) {
+                        if (minValue > dataset.data[i])
+                          minValue = dataset.data[i];
+                        if (maxValue < dataset.data[i])
+                          maxValue = dataset.data[i];
+                      }
+                      // Calculate Y pixels for min and max values.
+                      var yAxis = chartInstance.scales['y-axis-0'];
+                      var minValueYPixel = yAxis.getPixelForValue(minValue);
+                      var maxValueYPixel = yAxis.getPixelForValue(maxValue);
+                      // Create the gradient.
+                      var gradient = ctx.createLinearGradient(0, minValueYPixel, 0, maxValueYPixel);
+                      // A kind of red for min.
+                      gradient.addColorStop(0, '#26cce0');
+                      // A kind of blue for max.
+                      gradient.addColorStop(1, '#26e089');
+                      // Assign the gradient to the dataset's border color.
+                      dataset.borderColor = gradient;
+                      // Uncomment this for some effects, especially together with commenting the `fill: false` option below.
+                      // dataset.backgroundColor = gradient;
+                    }
+                  }
+                };
+
+                Chart.pluginService.register(gradientLinePlugin);
+
+            })
+        </script>
+    </head>
+    <body>
+        <div style="width:400px;height:50px"><canvas id="myChart" style="width:400px;height:50px"></canvas></div>
+        
+    </body>
+</html>
