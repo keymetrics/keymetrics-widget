@@ -53,19 +53,23 @@ var kmData = () => {
   km.init((err, res) => {
     if (err) return console.log(err);
 
+    // Get exceptions
     km.bucket.Data.exceptionsSummary((err, body) => {
       if (mb.window) {
         mb.window.webContents.send('exceptions', body);
       }
     })
 
-    // km.bus.on('**:exceptions', (data) => {
-    //   console.log(data)
-    // })
+    // Exceptions bus
+    km.bus.on('**:exception', (data) => {
+      if (mb.window) {
+        mb.window.webContents.send('exceptionsBus', data);
+      }
+    })
 
     // Data bus
     km.bus.on('data:*:status', (data) => {
-      //console.log(JSON.stringify(data))
+      // console.log(JSON.stringify(data))
       if (mb.window) {
         mb.window.webContents.send('data', data);
       }

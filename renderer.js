@@ -1,4 +1,4 @@
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('electron');
 
 var settings = () => {
   var settings = document.getElementById('settings');
@@ -33,6 +33,7 @@ var servers = [];
 var serverElement = null;
 var processElement = null;
 var probElement = null;
+var charts = [];
 
 ipcRenderer.on('data', (event, arg) => {
   for(var server in arg.apps_server) {
@@ -75,7 +76,7 @@ ipcRenderer.on('data', (event, arg) => {
         <div class="process">
           <div class="process-header">
             <div class="process-header-title">
-              <div class="process-header-logo"><img src="assets/online.svg"></div>
+              <div class="process-header-logo"><img src="assets/${(arg.apps_server[server][process].status === 'online') ? 'online' : 'offline'}.svg"></div>
               <div class="process-header-name">${process}</div>
             </div>
             <div class="process-header-arrow"><img src="assets/arrow.svg"></div>
@@ -90,7 +91,7 @@ ipcRenderer.on('data', (event, arg) => {
                 <div class="prob-value greenGradient">${arg.mini_metrics[server][process].cpu} %</div>
               </div>
               <div class="prob-graph">
-                <canvas id="myChart" height="40" class="prob-chart"></canvas>
+                <canvas id="cpu-${process}-${servers.indexOf(server) + 1}" height="40" class="prob-chart"></canvas>
               </div>
             </div>
             <div class="prob">
@@ -102,7 +103,7 @@ ipcRenderer.on('data', (event, arg) => {
                 <div class="prob-value greenGradient">${arg.mini_metrics[server][process].mem} MB</div>
               </div>
               <div class="prob-graph">
-                <canvas id="myChart" height="60" class="prob-chart"></canvas>
+                <canvas id="mem-${process}-${servers.indexOf(server) + 1}" height="60" class="prob-chart"></canvas>
               </div>
             </div>
             <div class="prob">
@@ -116,12 +117,43 @@ ipcRenderer.on('data', (event, arg) => {
                 </div>
               </div>
             </div>
+      `;
+      if (arg.apps_server[server][process].axm_monitor['pmx:http:latency']) {
+        processElement.innerHTML += `
+          <div class="prob">
+            <div class="prob-logo">
+              <img src="assets/World.svg">
+            </div>
+            <div class="prob-infos">
+              <div class="prob-name">HTTP avg.</div>
+              <div class="prob-value greenGradient">${arg.apps_server[server][process].axm_monitor['pmx:http:latency'].value}</div>
+            </div>
+            <div class="prob-graph">
+              <canvas id="myChart" height="60" class="prob-chart"></canvas>
+            </div>
+          </div>
+        `;
+      }
+      processElement.innerHTML += `
         </div>
       `;
+
+      if (charts.indexOf(`cpu-${process}-${servers.indexOf(server) + 1}`) === -1) {
+        charts[`cpu-${process}-${servers.indexOf(server) + 1}`] = newChart(document.getElementById(`cpu-${process}-${servers.indexOf(server) + 1}`));
+      }
+      if (charts.indexOf(`mem-${process}-${servers.indexOf(server) + 1}`) === -1) {
+        charts[`mem-${process}-${servers.indexOf(server) + 1}`] = newChart(document.getElementById(`mem-${process}-${servers.indexOf(server) + 1}`));
+      }
     }
   }
-})
+});
 
 ipcRenderer.on('exceptions', (event, arg) => {
   errors = arg;
-})
+});
+
+ipcRenderer.on('exceptionsBus', (event, arg) => {
+  arg.forEach((error) => {
+    errors[error.process.server][error.process.name] += 1;
+  });
+});

@@ -1,55 +1,17 @@
-var myChart
-ready(() => {
-    var ctx = document.getElementById("myChart");
-    myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [
-                {
-                    type: 'line',
-                    lineTension: 0,
-                    borderWidth: 1,
-                    pointRadius: 0,
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            linearGradientLine: true,
-            legend: {
-              display: false
-            },
-            scales: {
-                xAxes: [{
-                    display: false,
-                    ticks: {}
-                }],
-                yAxes: [{
-                    display: false,
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
-        }
-    });
+function putData() {
+  if (myChart.data.datasets[0].data.length > 11) {
+      myChart.data.datasets[0].data.shift();
+      myChart.data.labels.shift();
+  }
+  myChart.data.datasets[0].data.push(Math.random() * 100);
+  myChart.data.labels.push(Math.floor(new Date()));
+  myChart.options.scales.xAxes[0].ticks.min = myChart.data.labels[myChart.data.labels.length - 10];
+  myChart.options.scales.xAxes[0].ticks.max = Math.floor(new Date());
+  myChart.update();
+}
 
-    setInterval(() => {
-        if (myChart.data.datasets[0].data.length > 11) {
-            myChart.data.datasets[0].data.shift();
-            myChart.data.labels.shift();
-        }
-        myChart.data.datasets[0].data.push(Math.random() * 100);
-        myChart.data.labels.push(Math.floor(new Date()));
-        myChart.options.scales.xAxes[0].ticks.min = myChart.data.labels[myChart.data.labels.length - 10];
-        myChart.options.scales.xAxes[0].ticks.max = Math.floor(new Date());
-        myChart.update();
-    }, 1000)
-
-
-
-    var gradientLinePlugin = {
+function registerGradient() {
+  var gradientLinePlugin = {
       // Called at start of update.
       beforeUpdate: function(chartInstance) {
         if (chartInstance.options.linearGradientLine) {
@@ -85,8 +47,43 @@ ready(() => {
     };
 
     Chart.pluginService.register(gradientLinePlugin);
+}
 
-})
+function newChart(id) {
+  return (new Chart(id, {
+        type: 'line',
+        data: {
+            datasets: [
+                {
+                    type: 'line',
+                    lineTension: 0,
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            linearGradientLine: true,
+            legend: {
+              display: false
+            },
+            scales: {
+                xAxes: [{
+                    display: false,
+                    ticks: {}
+                }],
+                yAxes: [{
+                    display: false,
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }]
+            }
+        }
+    }))
+}
 
 function ready(fn) {
   if (document.readyState != 'loading'){
