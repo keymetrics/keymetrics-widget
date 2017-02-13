@@ -84,6 +84,11 @@ html, body {
 }
 
 .box {
+  z-index: 2;
+  top: 0;
+  left: 0px;
+  width: calc(100% - 20px);
+  position: fixed;
   background: #000;
   display: flex;
   color: #fff;
@@ -114,6 +119,10 @@ html, body {
 }
 
 /* Servers */
+
+.servers {
+  margin-top: 35px;
+}
 
 .server-header {
   padding: 10px;
@@ -149,6 +158,10 @@ html, body {
 }
 
 /* Processes */
+
+.process {
+  
+}
 
 .process-header {
   padding: 10px;

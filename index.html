@@ -5,86 +5,16 @@
     <title>Keymetrics-Widget</title>
     <link rel="stylesheet" type="text/css" href="master.css">
     <script type="text/javascript" src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script type="application/javascript" src="graph.js"></script>
+    <!-- <script type="application/javascript" src="graph.js"></script> -->
   </head>
   <body>
     <div class="box">
       <div class="box-title">Processes</div>
       <div class="box-close"><img src="assets/settings.svg"></div>
     </div>
-    <div class="servers">
-      <div class="server">
-        <div class="server-header">
-          <div class="server-header-title">
-            <div class="server-header-logo"><img src="assets/server.svg"></div>
-            <div class="server-header-name">Server #1 - sigma</div>
-          </div>
-          <div class="server-header-arrow"><img src="assets/arrow.svg"></div>
-        </div>
-        <div class="processes">
-          <div class="process">
-            <div class="process-header">
-              <div class="process-header-title">
-                <div class="process-header-logo"><img src="assets/online.svg"></div>
-                <div class="process-header-name">map.keymetrics.io</div>
-              </div>
-              <div class="process-header-arrow"><img src="assets/arrow.svg"></div>
-            </div>
-            <div class="probs">
-              <div class="prob">
-                <div class="prob-logo">
-                  <img src="assets/cpu.svg">
-                </div>
-                <div class="prob-infos">
-                  <div class="prob-name">CPU</div>
-                  <div class="prob-value greenGradient">1 %</div>
-                </div>
-                <div class="prob-graph">
-                  <canvas id="myChart" height="40" class="prob-chart"></canvas>
-                </div>
-              </div>
-              <div class="prob">
-                <div class="prob-logo">
-                  <img src="assets/memory.svg">
-                </div>
-                <div class="prob-infos">
-                  <div class="prob-name">MEM</div>
-                  <div class="prob-value greenGradient">330.0 MB</div>
-                </div>
-                <div class="prob-graph">
-                  <canvas id="myChart" height="60" class="prob-chart"></canvas>
-                </div>
-              </div>
-              <div class="prob">
-                <div class="prob-logo">
-                  <img src="assets/bug.svg">
-                </div>
-                <div class="prob-infos">
-                  <div class="prob-name">Errors</div>
-                  <div class="prob-value redGradient">
-                    23 <img height="25" src="assets/bug_gradient_red.svg">
-                  </div>
-                </div>
-                <div class="prob-graph">
-                  <canvas id="myChart" height="60" class="prob-chart"></canvas>
-                </div>
-              </div>
-              <div class="prob">
-                <div class="prob-logo">
-                  <img src="assets/World.svg">
-                </div>
-                <div class="prob-infos">
-                  <div class="prob-name">HTTP avg.</div>
-                  <div class="prob-value greenGradient">33.79 ms</div>
-                </div>
-                <div class="prob-graph">
-                  <canvas id="myChart" height="60" class="prob-chart"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="servers" class="servers"></div>
+    <script>
+      require('./renderer.js')
+    </script>
   </body>
 </html>

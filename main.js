@@ -52,8 +52,20 @@ var kmConfig = (tokens) => {
 var kmData = () => {
   km.init((err, res) => {
     if (err) return console.log(err);
+
+    km.bucket.Data.exceptionsSummary((err, body) => {
+      if (mb.window) {
+        mb.window.webContents.send('exceptions', body);
+      }
+    })
+
+    // km.bus.on('**:exceptions', (data) => {
+    //   console.log(data)
+    // })
+
     // Data bus
     km.bus.on('data:*:status', (data) => {
+      //console.log(JSON.stringify(data))
       if (mb.window) {
         mb.window.webContents.send('data', data);
       }
