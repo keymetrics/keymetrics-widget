@@ -1,9 +1,9 @@
-function putData() {
+function putData(myChart, value) {
   if (myChart.data.datasets[0].data.length > 11) {
       myChart.data.datasets[0].data.shift();
       myChart.data.labels.shift();
   }
-  myChart.data.datasets[0].data.push(Math.random() * 100);
+  myChart.data.datasets[0].data.push(value);
   myChart.data.labels.push(Math.floor(new Date()));
   myChart.options.scales.xAxes[0].ticks.min = myChart.data.labels[myChart.data.labels.length - 10];
   myChart.options.scales.xAxes[0].ticks.max = Math.floor(new Date());
@@ -51,38 +51,40 @@ function registerGradient() {
 
 function newChart(id) {
   return (new Chart(id, {
-        type: 'line',
-        data: {
-            datasets: [
-                {
-                    type: 'line',
-                    lineTension: 0,
-                    borderWidth: 1,
-                    pointRadius: 0,
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            linearGradientLine: true,
-            legend: {
-              display: false
-            },
-            scales: {
-                xAxes: [{
-                    display: false,
-                    ticks: {}
-                }],
-                yAxes: [{
-                    display: false,
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
+    type: 'line',
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          data: [12, 50, 7, 4, 42, 25, 4, 98, 43, 25, 0, 12],
+          type: 'line',
+          lineTension: 0,
+          borderWidth: 1,
+          pointRadius: 0,
+          fill: false,
+          borderColor: 'rgba(255,99,132,1)'
         }
-    }))
+      ]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          display: false,
+          ticks: {}
+        }],
+        yAxes: [{
+          display: false,
+          ticks: {
+            beginAtZero: true,
+            max: 100
+          }
+        }]
+      }
+    }
+  }))
 }
 
 function ready(fn) {
