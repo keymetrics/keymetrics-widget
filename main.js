@@ -84,6 +84,11 @@ ipcMain.on('saveSettings', (event, arg) => {
   kmData();
 })
 
+ipcMain.on('quit', (event, arg) => {
+  km.close();
+  process.exit(0);
+})
+
 // Menubar
 mb.on('ready', () => {
   console.log('app is ready');  try {
