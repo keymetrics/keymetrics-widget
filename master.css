@@ -118,6 +118,24 @@ html, body {
   font-size: 16px;
 }
 
+.app {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.settings {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
 /* Servers */
 
 .servers {
@@ -159,8 +177,8 @@ html, body {
 
 /* Processes */
 
-.process {
-  
+.processes {
+  /*display: none;*/
 }
 
 .process-header {
@@ -196,6 +214,10 @@ html, body {
 }
 
 /* Probs */
+
+.probs {
+  /*display: none;*/
+}
 
 .prob {
   background: #1f2225;
