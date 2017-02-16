@@ -40,6 +40,50 @@ var writeFile = (tokens) => {
   return file;
 }
 
+var servers = [];
+var serversIndex = [];
+
+var putData = (data, cb) => {
+  //console.log(data)
+  for (var server in data.apps_server) {
+    //console.log(server)
+    if (serversIndex.indexOf(server) === -1) {
+      serversIndex.push(server);
+    }
+    var index = serversIndex.indexOf(server);
+    servers[index] = {
+      name: server,
+      processes: []
+    }
+
+    var processes = Object.keys(data.apps_server[server]).sort();
+
+    processes.forEach((process) => {
+      servers[index].processes.push({
+        status: (data.apps_server[server][process].status === 'online') ? 'online' : 'offline',
+        name: process,
+        probs: [
+          {
+            logo: 'cpu',
+            name: 'CPU',
+            gradient: (data.mini_metrics[server][process].cpu > 50) ? 'red' : 'green',
+            value: data.mini_metrics[server][process].cpu,
+            units: '%'
+          },
+          {
+            logo: 'memory',
+            name: 'MEM',
+            gradient: (data.mini_metrics[server][process].mem > 1000) ? 'red' : 'green',
+            value: data.mini_metrics[server][process].mem[0],
+            units: 'MB'
+          }
+        ]
+      });
+    })
+  }
+  cb(servers);
+}
+
 // Keymetrics config
 var kmConfig = (tokens) => {
   km = new Keymetrics({
@@ -64,7 +108,7 @@ var kmData = () => {
     // Exceptions bus
     km.bus.on('**:exception', (data) => {
       if (mb.window) {
-        mb.window.webContents.send('exceptionsBus', data);
+        //mb.window.webContents.send('exceptionsBus', data);
       }
     })
 
@@ -72,7 +116,9 @@ var kmData = () => {
     km.bus.on('data:*:status', (data) => {
       // console.log(JSON.stringify(data))
       if (mb.window) {
-        mb.window.webContents.send('data', data);
+        putData(data, (servers) => {
+          mb.window.webContents.send('data', servers);
+        })
       }
     });
   });
@@ -82,6 +128,7 @@ ipcMain.on('saveSettings', (event, arg) => {
   writeFile(arg);
   km.close();
   kmConfig(arg);
+  servers = [];
   kmData();
 })
 
