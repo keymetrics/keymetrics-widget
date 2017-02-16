@@ -12,9 +12,7 @@ var Server = (props) => {
         </div>
         <div className="server-header-arrow"><img src="assets/arrow.svg" /></div>
       </div>
-      <div className="processes">
-        <Processes details={props.details.processes} />
-      </div>
+      <Processes details={props.details.processes} />
     </div>
   )
 }

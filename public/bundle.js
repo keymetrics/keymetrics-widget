@@ -72,99 +72,56 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	ipcRenderer.on('data', function (event, arg) {
-	  //console.log('test')
-	});
-
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	    _this.state = {
+	      settings: false,
+	      servers: []
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+
+	      ipcRenderer.on('data', function (event, arg) {
+	        _this2.setState({
+	          servers: arg
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'show',
+	    value: function show() {
+	      if (this.state.settings) {
+	        this.setState({
+	          settings: false
+	        });
+	      } else {
+	        this.setState({
+	          settings: true
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var servers = [{
-	        name: 'Jimi',
-	        processes: [{
-	          status: 'offline',
-	          name: 'App',
-	          probs: [{
-	            logo: 'cpu',
-	            name: 'CPU',
-	            gradient: 'red',
-	            value: '0',
-	            units: '%'
-	          }, {
-	            logo: 'memory',
-	            name: 'MEM',
-	            gradient: 'green',
-	            value: '0',
-	            units: 'MB'
-	          }]
-	        }, {
-	          status: 'online',
-	          name: 'Test',
-	          probs: [{
-	            logo: 'cpu',
-	            name: 'CPU',
-	            gradient: 'green',
-	            value: '14',
-	            units: '%'
-	          }, {
-	            logo: 'memory',
-	            name: 'MEM',
-	            gradient: 'green',
-	            value: '87',
-	            units: 'MB'
-	          }]
-	        }]
-	      }, {
-	        name: 'Scaleway',
-	        processes: [{
-	          status: 'offline',
-	          name: 'App',
-	          probs: [{
-	            logo: 'cpu',
-	            name: 'CPU',
-	            gradient: 'green',
-	            value: '0',
-	            units: '%'
-	          }, {
-	            logo: 'memory',
-	            name: 'MEM',
-	            gradient: 'green',
-	            value: '0',
-	            units: 'MB'
-	          }]
-	        }, {
-	          status: 'online',
-	          name: 'Test',
-	          probs: [{
-	            logo: 'cpu',
-	            name: 'CPU',
-	            gradient: 'green',
-	            value: '14',
-	            units: '%'
-	          }, {
-	            logo: 'memory',
-	            name: 'MEM',
-	            gradient: 'green',
-	            value: '87',
-	            units: 'MB'
-	          }]
-	        }]
-	      }];
+	      var _this3 = this;
+
 	      var panel;
-	      var setting = false;
-	      if (setting) {
-	        panel = _react2.default.createElement(_Servers2.default, { details: servers });
-	      } else {
+
+	      if (this.state.settings) {
 	        panel = _react2.default.createElement(_Settings2.default, { details: { token: 'test', public_key: 'bla' } });
+	      } else {
+	        panel = _react2.default.createElement(_Servers2.default, { details: this.state.servers });
 	      }
 	      return _react2.default.createElement(
 	        'div',
@@ -175,12 +132,14 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'box-title' },
-	            'Processes'
+	            this.state.settings ? 'Settings' : 'Processes'
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'box-close' },
-	            _react2.default.createElement('img', { src: 'assets/settings.svg' })
+	            { className: 'box-close', onClick: function onClick() {
+	                return _this3.show();
+	              } },
+	            _react2.default.createElement('img', { src: 'assets/' + (this.state.settings ? 'close' : 'settings') + '.svg' })
 	          )
 	        ),
 	        panel
@@ -21686,11 +21645,7 @@
 	        _react2.default.createElement('img', { src: 'assets/arrow.svg' })
 	      )
 	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'processes' },
-	      _react2.default.createElement(_Processes2.default, { details: props.details.processes })
-	    )
+	    _react2.default.createElement(_Processes2.default, { details: props.details.processes })
 	  );
 	};
 
@@ -21891,15 +21846,41 @@
 	var Settings = function (_React$Component) {
 	  _inherits(Settings, _React$Component);
 
-	  function Settings() {
+	  function Settings(props) {
 	    _classCallCheck(this, Settings);
 
-	    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this, props));
+
+	    _this.state = {
+	      token: _this.props.details.token,
+	      public_key: _this.props.details.public_key
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Settings, [{
+	    key: 'save',
+	    value: function save() {
+	      ipcRenderer.send('saveSettings', {
+	        token: this.state.token,
+	        public_key: this.state.public_key
+	      });
+	    }
+	  }, {
+	    key: 'handleToken',
+	    value: function handleToken(event) {
+	      this.setState({ token: event.target.value });
+	    }
+	  }, {
+	    key: 'handleKey',
+	    value: function handleKey(event) {
+	      this.setState({ public_key: event.target.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'settings' },
@@ -21921,13 +21902,19 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'form' },
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'token', defaultValue: this.props.details.token }),
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'token', defaultValue: this.props.details.token, onChange: function onChange(event) {
+	              return _this2.handleToken(event);
+	            } }),
 	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'public_key', defaultValue: this.props.details.public_key }),
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'public_key', defaultValue: this.props.details.public_key, onChange: function onChange(event) {
+	              return _this2.handleKey(event);
+	            } }),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'button',
-	            null,
+	            { onClick: function onClick() {
+	                return _this2.save();
+	              } },
 	            'SAVE'
 	          )
 	        ),
