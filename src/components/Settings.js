@@ -6,6 +6,7 @@ class Settings extends React.Component {
     super(props);
   
     this.state = {
+      info: ' ',
       token: this.props.details.token,
       public_key: this.props.details.public_key
     }
@@ -16,10 +17,20 @@ class Settings extends React.Component {
   }
 
   save() {
-    ipcRenderer.send('saveSettings', {
-      token: this.state.token,
-      public_key: this.state.public_key
-    })
+    if (this.state.token.length === 64 && this.state.public_key.length === 15) {
+      ipcRenderer.send('saveSettings', {
+        token: this.state.token,
+        public_key: this.state.public_key
+      })
+      this.setState({
+        info: 'Saved !'
+      })
+    }
+    else {
+      this.setState({
+        info: 'Wrong token or public_key'
+      })
+    }
   }
 
   handleToken(event) {
@@ -38,6 +49,9 @@ class Settings extends React.Component {
         </div>
         <div className="text">
           To get token and public_key, visit <a href="https://app.keymetrics.io/" target="_blank">Keymetrics</a>
+        </div>
+        <div className="text">
+          {this.state.info}
         </div>
         <div className="form">
           <input type="text" placeholder="token" defaultValue={this.props.details.token} onChange={(event) => this.handleToken(event)} /><br />
