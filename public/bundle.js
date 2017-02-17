@@ -97,6 +97,9 @@
 	          servers: arg
 	        });
 	      });
+	      ipcRenderer.on('tokens', function (event, arg) {
+	        console.log(arg);
+	      });
 	    }
 	  }, {
 	    key: 'show',
@@ -21619,6 +21622,10 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Server = function Server(props) {
+	  var processes;
+	  if (props.show === true) {
+	    processes = _react2.default.createElement(_Processes2.default, { details: props.details.processes });
+	  }
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'server' },
@@ -21645,24 +21652,31 @@
 	        _react2.default.createElement('img', { src: 'assets/arrow.svg' })
 	      )
 	    ),
-	    _react2.default.createElement(_Processes2.default, { details: props.details.processes })
+	    processes
 	  );
 	};
 
 	var Servers = function (_React$Component) {
 	  _inherits(Servers, _React$Component);
 
-	  function Servers() {
+	  function Servers(props) {
 	    _classCallCheck(this, Servers);
 
-	    return _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).call(this, props));
+
+	    _this.state = {
+	      show: true
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Servers, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var servers = this.props.details.map(function (server) {
-	        return _react2.default.createElement(Server, { key: server.name, details: server });
+	        return _react2.default.createElement(Server, { key: server.name, details: server, show: _this2.state.show });
 	      });
 	      return _react2.default.createElement(
 	        'div',
@@ -21705,37 +21719,43 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Prob = function Prob(props) {
+	var Probe = function Probe(props) {
 	  var graph;
 	  if (props.details.graph) {
 	    graph = _react2.default.createElement(
 	      'div',
-	      { className: 'prob-graph' },
-	      _react2.default.createElement('canvas', { id: props.details.graph, height: '40', className: 'prob-chart' })
+	      { className: 'probe-graph' },
+	      _react2.default.createElement('canvas', { id: props.details.graph, height: '40', className: 'probe-chart' })
 	    );
+	  }
+	  var units;
+	  if (props.details.logo === 'bug') {
+	    units = _react2.default.createElement('img', { height: '25', src: 'assets/' + props.details.units });
+	  } else {
+	    units = props.details.units;
 	  }
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'prob' },
+	    { className: 'probe' },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'prob-logo' },
+	      { className: 'probe-logo' },
 	      _react2.default.createElement('img', { src: 'assets/' + props.details.logo + '.svg' })
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'prob-infos' },
+	      { className: 'probe-infos' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'prob-name' },
+	        { className: 'probe-name' },
 	        props.details.name
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'prob-value ' + props.details.gradient + 'Gradient' },
+	        { className: 'probe-value ' + props.details.gradient + 'Gradient' },
 	        props.details.value,
 	        ' ',
-	        props.details.units
+	        units
 	      )
 	    ),
 	    graph
@@ -21743,15 +21763,15 @@
 	};
 
 	var Process = function Process(props) {
-	  var probs = props.details.probs.map(function (prob) {
+	  var probes = props.details.probes.map(function (probe) {
 	    var details = {
-	      logo: prob.logo,
-	      name: prob.name,
-	      gradient: prob.gradient,
-	      value: prob.value,
-	      units: prob.units
+	      logo: probe.logo,
+	      name: probe.name,
+	      gradient: probe.gradient,
+	      value: probe.value,
+	      units: probe.units
 	    };
-	    return _react2.default.createElement(Prob, { key: prob.name, details: details });
+	    return _react2.default.createElement(Probe, { key: probe.name, details: details });
 	  });
 	  return _react2.default.createElement(
 	    'div',
@@ -21781,8 +21801,8 @@
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'probs' },
-	      probs
+	      { className: 'probes' },
+	      probes
 	    )
 	  );
 	};
@@ -21859,6 +21879,11 @@
 	  }
 
 	  _createClass(Settings, [{
+	    key: 'quit',
+	    value: function quit() {
+	      ipcRenderer.send('quit', {});
+	    }
+	  }, {
 	    key: 'save',
 	    value: function save() {
 	      ipcRenderer.send('saveSettings', {
@@ -21920,7 +21945,9 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'quit' },
+	          { className: 'quit', onClick: function onClick() {
+	              return _this2.quit();
+	            } },
 	          'DISCONNECT'
 	        )
 	      );
