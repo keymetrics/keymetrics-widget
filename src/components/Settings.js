@@ -11,6 +11,10 @@ class Settings extends React.Component {
     }
   }
 
+  quit() {
+    ipcRenderer.send('quit', {})
+  }
+
   save() {
     ipcRenderer.send('saveSettings', {
       token: this.state.token,
@@ -40,7 +44,7 @@ class Settings extends React.Component {
           <input type="text" placeholder="public_key" defaultValue={this.props.details.public_key} onChange={(event) => this.handleKey(event)} /><br />
           <button onClick={() => this.save()}>SAVE</button>
         </div>
-        <div className="quit">
+        <div className="quit" onClick={() => this.quit()}>
           DISCONNECT
         </div>
       </div>
