@@ -1,6 +1,6 @@
 # Keymetrics-Widget
 
-WIP
+Vanilla branch
 
 Install and start
 ```
