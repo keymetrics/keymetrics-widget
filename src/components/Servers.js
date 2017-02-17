@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import Processes from './Processes.js'
 
 var Server = (props) => {
+  var processes
+  if (props.show === true) {
+    processes = <Processes details={props.details.processes} />
+  }
   return (
     <div className="server">
       <div className="server-header">
@@ -12,15 +16,23 @@ var Server = (props) => {
         </div>
         <div className="server-header-arrow"><img src="assets/arrow.svg" /></div>
       </div>
-      <Processes details={props.details.processes} />
+      {processes}
     </div>
   )
 }
 
 class Servers extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      show: true
+    }
+  }
+
   render () {
     const servers = this.props.details.map((server) => (
-      <Server key={server.name} details={server} />
+      <Server key={server.name} details={server} show={this.state.show} />
     ))
     return (
       <div className="servers">
