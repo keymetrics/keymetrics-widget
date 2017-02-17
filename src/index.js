@@ -18,6 +18,9 @@ class App extends React.Component {
         servers: arg
       })
     })
+    ipcRenderer.on('tokens', (event, arg) => {
+      console.log(arg)
+    })
   }
 
   show() {
