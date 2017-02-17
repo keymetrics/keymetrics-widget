@@ -1,21 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-var Prob = (props) => {
+var Probe = (props) => {
   var graph;
   if (props.details.graph) {
-    graph = (<div className="prob-graph">
-              <canvas id={props.details.graph} height="40" className="prob-chart"></canvas>
+    graph = (<div className="probe-graph">
+              <canvas id={props.details.graph} height="40" className="probe-chart"></canvas>
             </div>)
   }
+  var units
+  if (props.details.logo === 'bug') {
+    units = <img height="25" src={`assets/${props.details.units}`} />
+  }
+  else {
+    units = props.details.units
+  }
   return (
-    <div className="prob">
-      <div className="prob-logo">
+    <div className="probe">
+      <div className="probe-logo">
         <img src={`assets/${props.details.logo}.svg`} />
       </div>
-      <div className="prob-infos">
-        <div className="prob-name">{props.details.name}</div>
-        <div className={`prob-value ${props.details.gradient}Gradient`}>{props.details.value} {props.details.units}</div>
+      <div className="probe-infos">
+        <div className="probe-name">{props.details.name}</div>
+        <div className={`probe-value ${props.details.gradient}Gradient`}>{props.details.value} {units}</div>
       </div>
       {graph}
     </div>
@@ -23,15 +30,15 @@ var Prob = (props) => {
 }
 
 var Process = (props) => {
-  const probs = props.details.probs.map((prob) => {
+  const probes = props.details.probes.map((probe) => {
     var details = {
-      logo: prob.logo,
-      name: prob.name,
-      gradient: prob.gradient,
-      value: prob.value,
-      units: prob.units
+      logo: probe.logo,
+      name: probe.name,
+      gradient: probe.gradient,
+      value: probe.value,
+      units: probe.units
     }
-    return (<Prob key={prob.name} details={details} />)
+    return (<Probe key={probe.name} details={details} />)
   })
   return (
     <div className="process">
@@ -42,8 +49,8 @@ var Process = (props) => {
         </div>
         <div className="process-header-arrow"><img src="assets/arrow.svg" /></div>
       </div>
-      <div className="probs">
-        {probs}
+      <div className="probes">
+        {probes}
       </div>
     </div>
   )
