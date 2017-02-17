@@ -7,6 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      config: {},
       settings: false,
       servers: []
     }
@@ -19,7 +20,19 @@ class App extends React.Component {
       })
     })
     ipcRenderer.on('tokens', (event, arg) => {
-      console.log(arg)
+      if (!arg || !arg.token || !arg.public_key) {
+        this.setState({
+          settings: true
+        })
+      }
+      else {
+        this.setState({
+          config: {
+            token: arg.token,
+            public_key: arg.public_key
+          }
+        })
+      }
     })
   }
 
@@ -40,7 +53,7 @@ class App extends React.Component {
     var panel
 
     if (this.state.settings) {
-      panel = <Settings details={{token: 'test', public_key: 'bla'}} />
+      panel = <Settings details={this.state.config} />
     }
     else {
       panel = <Servers details={this.state.servers} />
