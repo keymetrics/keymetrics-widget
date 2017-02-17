@@ -81,6 +81,7 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
+	      config: {},
 	      settings: false,
 	      servers: []
 	    };
@@ -98,7 +99,18 @@
 	        });
 	      });
 	      ipcRenderer.on('tokens', function (event, arg) {
-	        console.log(arg);
+	        if (!arg || !arg.token || !arg.public_key) {
+	          _this2.setState({
+	            settings: true
+	          });
+	        } else {
+	          _this2.setState({
+	            config: {
+	              token: arg.token,
+	              public_key: arg.public_key
+	            }
+	          });
+	        }
 	      });
 	    }
 	  }, {
@@ -122,7 +134,7 @@
 	      var panel;
 
 	      if (this.state.settings) {
-	        panel = _react2.default.createElement(_Settings2.default, { details: { token: 'test', public_key: 'bla' } });
+	        panel = _react2.default.createElement(_Settings2.default, { details: this.state.config });
 	      } else {
 	        panel = _react2.default.createElement(_Servers2.default, { details: this.state.servers });
 	      }
@@ -21872,6 +21884,7 @@
 	    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this, props));
 
 	    _this.state = {
+	      info: ' ',
 	      token: _this.props.details.token,
 	      public_key: _this.props.details.public_key
 	    };
@@ -21886,10 +21899,19 @@
 	  }, {
 	    key: 'save',
 	    value: function save() {
-	      ipcRenderer.send('saveSettings', {
-	        token: this.state.token,
-	        public_key: this.state.public_key
-	      });
+	      if (this.state.token.length === 64 && this.state.public_key.length === 15) {
+	        ipcRenderer.send('saveSettings', {
+	          token: this.state.token,
+	          public_key: this.state.public_key
+	        });
+	        this.setState({
+	          info: 'Saved !'
+	        });
+	      } else {
+	        this.setState({
+	          info: 'Wrong token or public_key'
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'handleToken',
@@ -21923,6 +21945,11 @@
 	            { href: 'https://app.keymetrics.io/', target: '_blank' },
 	            'Keymetrics'
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text' },
+	          this.state.info
 	        ),
 	        _react2.default.createElement(
 	          'div',
