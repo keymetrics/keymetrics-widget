@@ -1,28 +1,38 @@
 {
-  "name": "keymetrics-widget",
-  "version": "1.0.0",
-  "description": "Monitoring widget",
+  "name": "km-widget",
+  "version": "0.0.1",
+  "description": "NodeJS monitoring",
   "main": "main.js",
   "scripts": {
+    "dev": "webpack --watch",
     "start": "electron ."
   },
-  "repository": "https://github.com/keymetrics/keymetrics-widget.git",
+  "repository": "",
   "keywords": [
-    "keymetrics-widget",
-    "keymetrics",
-    "widget",
     "pm2",
-    "monitoring"
+    "keymetrics",
+    "km",
+    "monitoring",
+    "widget",
+    "nodejs"
   ],
   "author": "Jimi M",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "babel": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "electron": "^1.4.15",
+    "webpack": "^1.14.0"
   },
   "dependencies": {
     "chart.js": "^2.5.0",
     "keymetrics-api": "^1.3.0",
-    "menubar": "^5.2.2",
-    "open": "0.0.5"
+    "menubar": "^5.2.3",
+    "open": "0.0.5",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

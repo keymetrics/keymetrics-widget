@@ -2,15 +2,15 @@
 
 @font-face {
     font-family: 'BlenderProThin';
-    src: url('./assets/fonts/BlenderProThin.ttf');
+    src: url('../assets/fonts/BlenderProThin.ttf');
 }
 @font-face {
     font-family: 'BlenderProMedium';
-    src: url('./assets/fonts/BlenderProMedium.ttf');
+    src: url('../assets/fonts/BlenderProMedium.ttf');
 }
 @font-face {
     font-family: 'BlenderProHeavy';
-    src: url('./assets/fonts/BlenderProHeavy.ttf');
+    src: url('../assets/fonts/BlenderProHeavy.ttf');
 }
 
 /* All */
@@ -18,7 +18,7 @@
 html, body {
     padding: 0px;
     margin: 0px;
-    background: #000 url("./assets/pattern.png");
+    background: #000 url("../assets/pattern.png");
     font-family: 'BlenderProMedium', sans-serif;
 }
 
@@ -127,7 +127,6 @@ html, body {
 }
 
 .settings {
-  display: none;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -213,13 +212,13 @@ html, body {
   height: 12px;
 }
 
-/* Probs */
+/* Probes */
 
-.probs {
+.probes {
   /*display: none;*/
 }
 
-.prob {
+.probe {
   background: #1f2225;
   height: 125px;
   width: calc(100% - 40px);
@@ -228,14 +227,14 @@ html, body {
   border-bottom: 1px solid #000;
 }
 
-.prob-logo {
+.probe-logo {
   position: relative;
   top: 2px;
   left: -70px;
   width: 100px;
 }
 
-.prob-infos {
+.probe-infos {
   position: relative;
   top: -110px;
   left: 0px;
@@ -243,13 +242,13 @@ html, body {
   justify-content: space-between;
 }
 
-.prob-name {
+.probe-name {
   font-family: 'BlenderProThin', sans-serif;
   font-weight: 500;
   font-size: 25px;
 }
 
-.prob-value {
+.probe-value {
   font-family: 'BlenderProThin', sans-serif;
   font-weight: 500;
   font-size: 40px;
@@ -271,7 +270,7 @@ html, body {
 
 /* Graph */
 
-.prob-graph {
+.probe-graph {
   position: relative;
   top: -70px;
   left: -20px;
@@ -279,7 +278,7 @@ html, body {
   height: 40px;
 }
 
-.prob-chart {
+.probe-chart {
   width: 100%;
   height: 40px;
 }
