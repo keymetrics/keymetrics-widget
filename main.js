@@ -126,7 +126,9 @@ var kmConfig = (tokens) => {
 // Get data from bus
 var kmData = () => {
   km.init((err, res) => {
-    if (err) return console.log(err);
+    if (err) {
+      return ;
+    }
 
     // Get exceptions
     km.bucket.Data.exceptionsSummary((err, body) => {
@@ -152,35 +154,38 @@ var kmData = () => {
 // Save settings (Save button on Settings UI)
 ipcMain.on('saveSettings', (event, arg) => {
   writeFile(arg);
-  km.close();
-  kmConfig(arg);
+  if (km) {
+    km.close();
+  }
   servers = [];
+  kmConfig(arg);
   kmData();
+  mb.window.webContents.send('tokens', tokens);
 })
 
 // Quit app (Disconnect link on Settings UI)
 ipcMain.on('quit', (event, arg) => {
-  km.close();
+  if (km) {
+    km.close();
+  }
   process.exit(0);
 })
 
 // App ready
 mb.on('ready', () => {
-  console.log('app is ready');
   try {
-    console.log('File');
     tokens = JSON.parse(readFile());
     kmConfig(tokens);
     kmData();
-    console.log(tokens);
   }
-  catch (e) {
-    console.log('No file');
-    console.log(tokens);
-  }
-
-  mb.window.webContents.send('tokens', tokens);
+  catch (e) {}
+  
   mb.showWindow();
+
+  // DOM ready
+  mb.window.webContents.on('dom-ready', () => {
+    mb.window.webContents.send('tokens', tokens);
+  });
 
   // Handle link to open external browser
   mb.window.webContents.on('new-window', (event, url) => {
