@@ -6,6 +6,7 @@ import Settings from './components/Settings.js'
 class App extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       config: {},
       settings: false,
