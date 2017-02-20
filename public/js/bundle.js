@@ -21683,12 +21683,19 @@
 	  }
 
 	  _createClass(Servers, [{
+	    key: 'show',
+	    value: function show() {
+	      console.log('show');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
 	      var servers = this.props.details.map(function (server) {
-	        return _react2.default.createElement(Server, { key: server.name, details: server, show: _this2.state.show });
+	        return _react2.default.createElement(Server, { key: server.name, details: server, show: _this2.state.show, onClick: function onClick() {
+	            return _this2.show();
+	          } });
 	      });
 	      return _react2.default.createElement(
 	        'div',
