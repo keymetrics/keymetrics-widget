@@ -24,15 +24,19 @@ var Server = (props) => {
 class Servers extends React.Component {
   constructor(props) {
     super(props)
-  
+
     this.state = {
       show: true
     }
   }
 
+  show() {
+    console.log('show')
+  }
+
   render () {
     const servers = this.props.details.map((server) => (
-      <Server key={server.name} details={server} show={this.state.show} />
+      <Server key={server.name} details={server} show={this.state.show} onClick={() => this.show()} />
     ))
     return (
       <div className="servers">
