@@ -34,7 +34,7 @@ class Servers extends React.Component {
     console.log('show')
   }
 
-  render () {
+  render() {
     const servers = this.props.details.map((server) => (
       <Server key={server.name} details={server} show={this.state.show} />
     ))
