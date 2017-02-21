@@ -7,7 +7,7 @@ class Chart extends React.Component {
     super(props)
   }
 
-  render () {
+  render() {
     const data = {
       labels: ['', '', '', '', '', ''],
       datasets: [
@@ -39,7 +39,11 @@ class Chart extends React.Component {
         }]
       }
     }
-    return (<Line data={data} options={options} />)
+    return (
+      <div className="probe-graph">
+        <Line data={data} options={options} />
+      </div>
+    )
   }
 }
 
