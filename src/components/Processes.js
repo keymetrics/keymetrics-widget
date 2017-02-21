@@ -5,9 +5,7 @@ import Chart from './Chart.js'
 var Probe = (props) => {
   var graph;
   if (props.details.graph) {
-    graph = (<div className="probe-graph">
-              <Chart values={props.details.graph.values} />
-            </div>)
+    graph = <Chart values={props.details.graph.values} />
   }
   var units
   if (props.details.logo === 'bug') {
@@ -51,7 +49,7 @@ var Process = (props) => {
 }
 
 class Processes extends React.Component {
-  render () {
+  render() {
     const processes = this.props.details.map((process) => (
       <Process key={process.name} details={process} />
     ))
