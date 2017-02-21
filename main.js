@@ -10,6 +10,7 @@ var tokens;
 var servers = [];
 var serversIndex = [];
 var exceptions = {};
+var charts = {};
 
 // Menubar config
 var mb = menubar({
@@ -56,11 +57,28 @@ var putData = (data, cb) => {
     servers[index] = {
       name: server,
       processes: []
-    }
+    };
 
     var processes = Object.keys(data.apps_server[server]).sort();
 
     processes.forEach((process) => {
+      if (!charts[`cpu-${server}-${process}`] || charts[`cpu-${server}-${process}`].length === 0) {
+        charts[`cpu-${server}-${process}`] = [0, 0, 0, 0, 0, 0];
+      }
+      if (charts[`cpu-${server}-${process}`] && charts[`cpu-${server}-${process}`].length > 5) {
+        charts[`cpu-${server}-${process}`].shift();
+      }
+      charts[`cpu-${server}-${process}`].push(data.mini_metrics[server][process].cpu[0])
+
+      if (!charts[`mem-${server}-${process}`] || charts[`mem-${server}-${process}`].length === 0) {
+        charts[`mem-${server}-${process}`] = [0, 0, 0, 0, 0, 0];
+      }
+      if (charts[`mem-${server}-${process}`] && charts[`mem-${server}-${process}`].length > 5) {
+        charts[`mem-${server}-${process}`].shift();
+      }
+
+      charts[`mem-${server}-${process}`].push(data.mini_metrics[server][process].mem[0])
+
       servers[index].processes.push({
         status: (data.apps_server[server][process].status === 'online') ? 'online' : 'offline',
         name: process,
@@ -70,14 +88,22 @@ var putData = (data, cb) => {
             name: 'CPU',
             gradient: (data.mini_metrics[server][process].cpu > 50) ? 'red' : 'green',
             value: data.mini_metrics[server][process].cpu,
-            units: '%'
+            units: '%',
+            graph: {
+              name: `cpu-${server}-${process}`,
+              values: charts[`cpu-${server}-${process}`]
+            }
           },
           {
             logo: 'memory',
             name: 'MEM',
             gradient: (data.mini_metrics[server][process].mem > 1000) ? 'red' : 'green',
             value: data.mini_metrics[server][process].mem[0],
-            units: 'MB'
+            units: 'MB',
+            graph: {
+              name: `mem-${server}-${process}`,
+              values: charts[`mem-${server}-${process}`]
+            }
           },
           {
             logo: 'bug',
@@ -96,7 +122,7 @@ var putData = (data, cb) => {
           value: data.apps_server[server][process].axm_monitor['pmx:http:latency'].value
         });
       }
-    })
+    });
   }
   cb(servers);
 }
