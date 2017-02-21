@@ -6,7 +6,7 @@ import Settings from './components/Settings.js'
 class App extends React.Component {
   constructor(props) {
     super(props)
-
+        
     this.state = {
       config: {},
       settings: false,
@@ -14,7 +14,7 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     ipcRenderer.on('data', (event, arg) => {
       this.setState({
         servers: arg
@@ -50,14 +50,14 @@ class App extends React.Component {
     }
   }
 
-  render () {
+  render() {
     var panel
 
     if (this.state.settings) {
       panel = <Settings details={this.state.config} />
     }
     else {
-      panel = <Servers details={this.state.servers} />
+      panel = <Servers details={this.state.servers} test={this.state.test} />
     }
     return (
       <div className="container">
