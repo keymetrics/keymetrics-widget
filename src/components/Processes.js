@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Chart from './Chart.js'
 
 var Probe = (props) => {
   var graph;
   if (props.details.graph) {
     graph = (<div className="probe-graph">
-              <canvas id={props.details.graph} height="40" className="probe-chart"></canvas>
+              <Chart values={props.details.graph.values} />
             </div>)
   }
   var units
@@ -30,16 +31,9 @@ var Probe = (props) => {
 }
 
 var Process = (props) => {
-  const probes = props.details.probes.map((probe) => {
-    var details = {
-      logo: probe.logo,
-      name: probe.name,
-      gradient: probe.gradient,
-      value: probe.value,
-      units: probe.units
-    }
-    return (<Probe key={probe.name} details={details} />)
-  })
+  const probes = props.details.probes.map((probe) => (
+    <Probe key={probe.name} details={probe} />
+  ))
   return (
     <div className="process">
       <div className="process-header">
