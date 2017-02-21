@@ -36,7 +36,7 @@ class Servers extends React.Component {
 
   render () {
     const servers = this.props.details.map((server) => (
-      <Server key={server.name} details={server} show={this.state.show} onClick={() => this.show()} />
+      <Server key={server.name} details={server} show={this.state.show} />
     ))
     return (
       <div className="servers">
