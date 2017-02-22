@@ -3,6 +3,7 @@ const menubar = require('menubar');
 const Keymetrics = require('keymetrics-api');
 const fs = require('fs');
 const open = require('open');
+const path = require('path');
 
 // Glabal var
 var km;
@@ -15,11 +16,11 @@ var charts = {};
 
 // Menubar config
 var mb = menubar({
-  dir: 'public',
+  dir: path.join(__dirname, '/public'),
   width: 350,
   height: 600,
   resizable: false,
-  icon: './public/assets/iconTemplate.png',
+  icon: path.join(__dirname, '/public/assets/iconTemplate.png'),
   preloadWindow: true
 });
 
