@@ -28,24 +28,43 @@ var Probe = (props) => {
   )
 }
 
-var Process = (props) => {
-  const probes = props.details.probes.map((probe) => (
-    <Probe key={probe.name} details={probe} />
-  ))
-  return (
-    <div className="process">
-      <div className="process-header">
-        <div className="process-header-title">
-          <div className="process-header-logo"><img src={`assets/${props.details.status}.svg`} /></div>
-          <div className="process-header-name">{props.details.name}</div>
+class Process extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      show: false
+    }
+  }
+
+  showProcess() {
+    this.setState({
+      show: !this.state.show
+    })
+  }
+
+  render() {
+    var probes
+    if (this.state.show === true) {
+      probes = this.props.details.probes.map((probe) => (
+        <Probe key={probe.name} details={probe} />
+      ))
+    }
+    return (
+      <div className="process">
+        <div className="process-header" onClick={() => this.showProcess()} >
+          <div className="process-header-title">
+            <div className="process-header-logo"><img src={`assets/${this.props.details.status}.svg`} /></div>
+            <div className="process-header-name">{this.props.details.name}</div>
+          </div>
+          <div className="process-header-arrow"><img src="assets/arrow.svg" /></div>
         </div>
-        <div className="process-header-arrow"><img src="assets/arrow.svg" /></div>
+        <div className="probes">
+          {probes}
+        </div>
       </div>
-      <div className="probes">
-        {probes}
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 class Processes extends React.Component {

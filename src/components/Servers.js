@@ -2,41 +2,49 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Processes from './Processes.js'
 
-var Server = (props) => {
-  var processes
-  if (props.show === true) {
-    processes = <Processes details={props.details.processes} />
+class Server extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      show: false
+    }
   }
-  return (
-    <div className="server">
-      <div className="server-header">
-        <div className="server-header-title">
-          <div className="server-header-logo"><img src="assets/server.svg" /></div>
-          <div className="server-header-name">{props.details.name}</div>
+
+  showServer() {
+    this.setState({
+      show: !this.state.show
+    })
+  }
+
+  render() {
+    var processes
+    if (this.state.show === true) {
+      processes = <Processes details={this.props.details.processes} />
+    }
+    return (
+      <div className="server">
+        <div className="server-header" onClick={() => this.showServer()}>
+          <div className="server-header-title">
+            <div className="server-header-logo"><img src="assets/server.svg" /></div>
+            <div className="server-header-name">{this.props.details.name}</div>
+          </div>
+          <div className="server-header-arrow"><img src="assets/arrow.svg" /></div>
         </div>
-        <div className="server-header-arrow"><img src="assets/arrow.svg" /></div>
+        {processes}
       </div>
-      {processes}
-    </div>
-  )
+    )
+  }
 }
 
 class Servers extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      show: true
-    }
-  }
-
-  show() {
-    console.log('show')
   }
 
   render() {
     const servers = this.props.details.map((server) => (
-      <Server key={server.name} details={server} show={this.state.show} />
+      <Server key={server.name} details={server} />
     ))
     return (
       <div className="servers">

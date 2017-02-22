@@ -21633,67 +21633,86 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Server = function Server(props) {
-	  var processes;
-	  if (props.show === true) {
-	    processes = _react2.default.createElement(_Processes2.default, { details: props.details.processes });
-	  }
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'server' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'server-header' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'server-header-title' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'server-header-logo' },
-	          _react2.default.createElement('img', { src: 'assets/server.svg' })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'server-header-name' },
-	          props.details.name
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'server-header-arrow' },
-	        _react2.default.createElement('img', { src: 'assets/arrow.svg' })
-	      )
-	    ),
-	    processes
-	  );
-	};
+	var Server = function (_React$Component) {
+	  _inherits(Server, _React$Component);
 
-	var Servers = function (_React$Component) {
-	  _inherits(Servers, _React$Component);
+	  function Server(props) {
+	    _classCallCheck(this, Server);
 
-	  function Servers(props) {
-	    _classCallCheck(this, Servers);
-
-	    var _this = _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Server.__proto__ || Object.getPrototypeOf(Server)).call(this, props));
 
 	    _this.state = {
-	      show: true
+	      show: false
 	    };
 	    return _this;
 	  }
 
-	  _createClass(Servers, [{
-	    key: 'show',
-	    value: function show() {
-	      console.log('show');
+	  _createClass(Server, [{
+	    key: 'showServer',
+	    value: function showServer() {
+	      this.setState({
+	        show: !this.state.show
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
+	      var processes;
+	      if (this.state.show === true) {
+	        processes = _react2.default.createElement(_Processes2.default, { details: this.props.details.processes });
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'server' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'server-header', onClick: function onClick() {
+	              return _this2.showServer();
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'server-header-title' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'server-header-logo' },
+	              _react2.default.createElement('img', { src: 'assets/server.svg' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'server-header-name' },
+	              this.props.details.name
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'server-header-arrow' },
+	            _react2.default.createElement('img', { src: 'assets/arrow.svg' })
+	          )
+	        ),
+	        processes
+	      );
+	    }
+	  }]);
+
+	  return Server;
+	}(_react2.default.Component);
+
+	var Servers = function (_React$Component2) {
+	  _inherits(Servers, _React$Component2);
+
+	  function Servers(props) {
+	    _classCallCheck(this, Servers);
+
+	    return _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).call(this, props));
+	  }
+
+	  _createClass(Servers, [{
+	    key: 'render',
+	    value: function render() {
 	      var servers = this.props.details.map(function (server) {
-	        return _react2.default.createElement(Server, { key: server.name, details: server, show: _this2.state.show });
+	        return _react2.default.createElement(Server, { key: server.name, details: server });
 	      });
 	      return _react2.default.createElement(
 	        'div',
@@ -21779,46 +21798,80 @@
 	  );
 	};
 
-	var Process = function Process(props) {
-	  var probes = props.details.probes.map(function (probe) {
-	    return _react2.default.createElement(Probe, { key: probe.name, details: probe });
-	  });
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'process' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'process-header' },
-	      _react2.default.createElement(
+	var Process = function (_React$Component) {
+	  _inherits(Process, _React$Component);
+
+	  function Process(props) {
+	    _classCallCheck(this, Process);
+
+	    var _this = _possibleConstructorReturn(this, (Process.__proto__ || Object.getPrototypeOf(Process)).call(this, props));
+
+	    _this.state = {
+	      show: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Process, [{
+	    key: 'showProcess',
+	    value: function showProcess() {
+	      this.setState({
+	        show: !this.state.show
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var probes;
+	      if (this.state.show === true) {
+	        probes = this.props.details.probes.map(function (probe) {
+	          return _react2.default.createElement(Probe, { key: probe.name, details: probe });
+	        });
+	      }
+	      return _react2.default.createElement(
 	        'div',
-	        { className: 'process-header-title' },
+	        { className: 'process' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'process-header-logo' },
-	          _react2.default.createElement('img', { src: 'assets/' + props.details.status + '.svg' })
+	          { className: 'process-header', onClick: function onClick() {
+	              return _this2.showProcess();
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'process-header-title' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'process-header-logo' },
+	              _react2.default.createElement('img', { src: 'assets/' + this.props.details.status + '.svg' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'process-header-name' },
+	              this.props.details.name
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'process-header-arrow' },
+	            _react2.default.createElement('img', { src: 'assets/arrow.svg' })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'process-header-name' },
-	          props.details.name
+	          { className: 'probes' },
+	          probes
 	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'process-header-arrow' },
-	        _react2.default.createElement('img', { src: 'assets/arrow.svg' })
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'probes' },
-	      probes
-	    )
-	  );
-	};
+	      );
+	    }
+	  }]);
 
-	var Processes = function (_React$Component) {
-	  _inherits(Processes, _React$Component);
+	  return Process;
+	}(_react2.default.Component);
+
+	var Processes = function (_React$Component2) {
+	  _inherits(Processes, _React$Component2);
 
 	  function Processes() {
 	    _classCallCheck(this, Processes);
