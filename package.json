@@ -5,9 +5,10 @@
   "main": "main.js",
   "scripts": {
     "dev": "webpack --watch",
-    "start": "electron ."
+    "start": "./node_modules/electron/cli.js .",
+    "build": "./node_modules/electron-packager/cli.js . Keymetrics-Widget --platform=all --arch=all"
   },
-  "repository": "",
+  "repository": "https://github.com/keymetrics/keymetrics-widget.git",
   "keywords": [
     "pm2",
     "keymetrics",
@@ -25,6 +26,7 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "electron": "^1.4.15",
+    "electron-packager": "^8.5.2",
     "webpack": "^1.14.0"
   },
   "dependencies": {
