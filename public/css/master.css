@@ -176,10 +176,6 @@ html, body {
 
 /* Processes */
 
-.processes {
-  /*display: none;*/
-}
-
 .process-header {
   padding: 10px;
   background: #2f3338;
@@ -214,8 +210,8 @@ html, body {
 
 /* Probes */
 
-.probes {
-  /*display: none;*/
+.probes a {
+  text-decoration: none;
 }
 
 .probe {
@@ -225,6 +221,10 @@ html, body {
   color: #fff;
   padding: 20px 20px 0px 20px;
   border-bottom: 1px solid #000;
+}
+
+.probe:hover {
+  background: #272a2d;
 }
 
 .probe-logo {

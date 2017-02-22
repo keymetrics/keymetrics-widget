@@ -15,16 +15,18 @@ var Probe = (props) => {
     units = props.details.units
   }
   return (
-    <div className="probe">
-      <div className="probe-logo">
-        <img src={`assets/${props.details.logo}.svg`} />
+    <a href={props.details.url} target="_blank">
+      <div className="probe">
+        <div className="probe-logo">
+          <img src={`assets/${props.details.logo}.svg`} />
+        </div>
+        <div className="probe-infos">
+          <div className="probe-name">{props.details.name}</div>
+          <div className={`probe-value ${props.details.gradient}Gradient`}>{props.details.value} {units}</div>
+        </div>
+        {graph}
       </div>
-      <div className="probe-infos">
-        <div className="probe-name">{props.details.name}</div>
-        <div className={`probe-value ${props.details.gradient}Gradient`}>{props.details.value} {units}</div>
-      </div>
-      {graph}
-    </div>
+    </a>
   )
 }
 

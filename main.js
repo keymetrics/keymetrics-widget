@@ -7,6 +7,7 @@ const open = require('open');
 // Glabal var
 var km;
 var tokens;
+var bucketId;
 var servers = [];
 var serversIndex = [];
 var exceptions = {};
@@ -92,7 +93,8 @@ var putData = (data, cb) => {
             graph: {
               name: `cpu-${server}-${process}`,
               values: charts[`cpu-${server}-${process}`]
-            }
+            },
+            url: `https://app.keymetrics.io/#/bucket/${bucketId}/apps-signs?server_name=${server}&app_name=${process}`
           },
           {
             logo: 'memory',
@@ -103,14 +105,16 @@ var putData = (data, cb) => {
             graph: {
               name: `mem-${server}-${process}`,
               values: charts[`mem-${server}-${process}`]
-            }
+            },
+            url: `https://app.keymetrics.io/#/bucket/${bucketId}/apps-signs?server_name=${server}&app_name=${process}`
           },
           {
             logo: 'bug',
             name: 'Errors',
             gradient: 'red',
             value: (exceptions[server] && exceptions[server][process]) ? exceptions[server][process] : 0,
-            units: 'bug_gradient_red.svg'
+            units: 'bug_gradient_red.svg',
+            url: `https://app.keymetrics.io/#/bucket/${bucketId}/exceptions?server_name=${server}&app_name=${process}`
           }
         ]
       });
@@ -119,7 +123,8 @@ var putData = (data, cb) => {
           logo: 'world',
           name: 'HTTP avg.',
           gradient: (parseFloat(data.apps_server[server][process].axm_monitor['pmx:http:latency'].value) > 1000) ? 'red' : 'green',
-          value: data.apps_server[server][process].axm_monitor['pmx:http:latency'].value
+          value: data.apps_server[server][process].axm_monitor['pmx:http:latency'].value,
+          url: `https://app.keymetrics.io/#/bucket/${bucketId}/transactions?server_name=${server}&app_name=${process}`
         });
       }
     });
@@ -159,19 +164,23 @@ var kmData = () => {
     // Get exceptions
     km.bucket.Data.exceptionsSummary((err, body) => {
       exceptions = body;
-    })
+    });
+
+    km.bucket.retrieve(tokens.public_key, (err, bucket) => {
+      bucketId = bucket._id;
+    });
 
     // Exceptions bus
     km.bus.on('**:exception', (data) => {
       putExceptions(data);
-    })
+    });
 
     // Data bus
     km.bus.on('data:*:status', (data) => {
       if (mb.window) {
         putData(data, (servers) => {
           mb.window.webContents.send('data', servers);
-        })
+        });
       }
     });
   });

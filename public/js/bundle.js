@@ -21771,30 +21771,34 @@
 	    units = props.details.units;
 	  }
 	  return _react2.default.createElement(
-	    'div',
-	    { className: 'probe' },
+	    'a',
+	    { href: props.details.url, target: '_blank' },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'probe-logo' },
-	      _react2.default.createElement('img', { src: 'assets/' + props.details.logo + '.svg' })
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'probe-infos' },
+	      { className: 'probe' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'probe-name' },
-	        props.details.name
+	        { className: 'probe-logo' },
+	        _react2.default.createElement('img', { src: 'assets/' + props.details.logo + '.svg' })
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'probe-value ' + props.details.gradient + 'Gradient' },
-	        props.details.value,
-	        ' ',
-	        units
-	      )
-	    ),
-	    graph
+	        { className: 'probe-infos' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'probe-name' },
+	          props.details.name
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'probe-value ' + props.details.gradient + 'Gradient' },
+	          props.details.value,
+	          ' ',
+	          units
+	        )
+	      ),
+	      graph
+	    )
 	  );
 	};
 
