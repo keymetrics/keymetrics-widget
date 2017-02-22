@@ -21888,7 +21888,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var data = {
-	        labels: ['', '', '', '', '', ''],
+	        labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
 	        datasets: [{
 	          data: this.props.values,
 	          type: 'line',

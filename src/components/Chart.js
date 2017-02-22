@@ -9,7 +9,7 @@ class Chart extends React.Component {
 
   render() {
     const data = {
-      labels: ['', '', '', '', '', ''],
+      labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
       datasets: [
         {
           data: this.props.values,

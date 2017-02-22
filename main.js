@@ -63,17 +63,17 @@ var putData = (data, cb) => {
 
     processes.forEach((process) => {
       if (!charts[`cpu-${server}-${process}`] || charts[`cpu-${server}-${process}`].length === 0) {
-        charts[`cpu-${server}-${process}`] = [0, 0, 0, 0, 0, 0];
+        charts[`cpu-${server}-${process}`] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       }
-      if (charts[`cpu-${server}-${process}`] && charts[`cpu-${server}-${process}`].length > 5) {
+      if (charts[`cpu-${server}-${process}`] && charts[`cpu-${server}-${process}`].length > 10) {
         charts[`cpu-${server}-${process}`].shift();
       }
       charts[`cpu-${server}-${process}`].push(data.mini_metrics[server][process].cpu[0])
 
       if (!charts[`mem-${server}-${process}`] || charts[`mem-${server}-${process}`].length === 0) {
-        charts[`mem-${server}-${process}`] = [0, 0, 0, 0, 0, 0];
+        charts[`mem-${server}-${process}`] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       }
-      if (charts[`mem-${server}-${process}`] && charts[`mem-${server}-${process}`].length > 5) {
+      if (charts[`mem-${server}-${process}`] && charts[`mem-${server}-${process}`].length > 10) {
         charts[`mem-${server}-${process}`].shift();
       }
 
