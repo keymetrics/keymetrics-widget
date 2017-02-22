@@ -180,6 +180,7 @@ var kmData = () => {
 // Save settings (Save button on Settings UI)
 ipcMain.on('saveSettings', (event, arg) => {
   writeFile(arg);
+  tokens = arg;
   if (km) {
     km.close();
   }
@@ -197,12 +198,25 @@ ipcMain.on('quit', (event, arg) => {
   process.exit(0);
 })
 
+// Get data when widget is open
+mb.on('show', () => {
+  if (tokens) {
+    kmConfig(tokens);
+    kmData();
+  }
+});
+
+// Close km when widget is closed
+mb.on('hide', () => {
+  if (km) {
+    km.close();
+  }
+});
+
 // App ready
 mb.on('ready', () => {
   try {
     tokens = JSON.parse(readFile());
-    kmConfig(tokens);
-    kmData();
   }
   catch (e) {}
   
