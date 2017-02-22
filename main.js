@@ -183,6 +183,7 @@ ipcMain.on('saveSettings', (event, arg) => {
   tokens = arg;
   if (km) {
     km.close();
+    km = null;
   }
   servers = [];
   kmConfig(arg);
@@ -194,6 +195,7 @@ ipcMain.on('saveSettings', (event, arg) => {
 ipcMain.on('quit', (event, arg) => {
   if (km) {
     km.close();
+    km = null;
   }
   process.exit(0);
 })
@@ -210,6 +212,7 @@ mb.on('show', () => {
 mb.on('hide', () => {
   if (km) {
     km.close();
+    km = null;
   }
 });
 
