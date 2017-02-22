@@ -60,7 +60,7 @@
 
 	var _Servers2 = _interopRequireDefault(_Servers);
 
-	var _Settings = __webpack_require__(180);
+	var _Settings = __webpack_require__(341);
 
 	var _Settings2 = _interopRequireDefault(_Settings);
 
@@ -21728,7 +21728,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Chart = __webpack_require__(341);
+	var _Chart = __webpack_require__(180);
 
 	var _Chart2 = _interopRequireDefault(_Chart);
 
@@ -21865,6 +21865,8 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _reactChartjs = __webpack_require__(181);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21873,116 +21875,58 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Settings = function (_React$Component) {
-	  _inherits(Settings, _React$Component);
+	var Chart = function (_React$Component) {
+	  _inherits(Chart, _React$Component);
 
-	  function Settings(props) {
-	    _classCallCheck(this, Settings);
+	  function Chart(props) {
+	    _classCallCheck(this, Chart);
 
-	    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this, props));
-
-	    _this.state = {
-	      info: ' ',
-	      token: _this.props.details.token,
-	      public_key: _this.props.details.public_key
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Chart.__proto__ || Object.getPrototypeOf(Chart)).call(this, props));
 	  }
 
-	  _createClass(Settings, [{
-	    key: 'quit',
-	    value: function quit() {
-	      ipcRenderer.send('quit', {});
-	    }
-	  }, {
-	    key: 'save',
-	    value: function save() {
-	      if (this.state.token.length === 64 && this.state.public_key.length === 15) {
-	        ipcRenderer.send('saveSettings', {
-	          token: this.state.token,
-	          public_key: this.state.public_key
-	        });
-	        this.setState({
-	          info: 'Saved !'
-	        });
-	      } else {
-	        this.setState({
-	          info: 'Wrong token or public_key'
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'handleToken',
-	    value: function handleToken(event) {
-	      this.setState({ token: event.target.value });
-	    }
-	  }, {
-	    key: 'handleKey',
-	    value: function handleKey(event) {
-	      this.setState({ public_key: event.target.value });
-	    }
-	  }, {
+	  _createClass(Chart, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
+	      var data = {
+	        labels: ['', '', '', '', '', ''],
+	        datasets: [{
+	          data: this.props.values,
+	          type: 'line',
+	          lineTension: 0,
+	          borderWidth: 1,
+	          pointRadius: 0,
+	          fill: false,
+	          borderColor: '#26e089'
+	        }]
+	      };
+	      var options = {
+	        legend: {
+	          display: false
+	        },
+	        scales: {
+	          xAxes: [{
+	            display: false
+	          }],
+	          yAxes: [{
+	            display: false,
+	            ticks: {
+	              beginAtZero: true
+	            }
+	          }]
+	        }
+	      };
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'settings' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'logo' },
-	          _react2.default.createElement('img', { src: 'assets/logo-white_Keymetrics@2x.png' })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'text' },
-	          'To get token and public_key, visit ',
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'https://app.keymetrics.io/', target: '_blank' },
-	            'Keymetrics'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'text' },
-	          this.state.info
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'form' },
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'token', defaultValue: this.props.details.token, onChange: function onChange(event) {
-	              return _this2.handleToken(event);
-	            } }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'public_key', defaultValue: this.props.details.public_key, onChange: function onChange(event) {
-	              return _this2.handleKey(event);
-	            } }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: function onClick() {
-	                return _this2.save();
-	              } },
-	            'SAVE'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'quit', onClick: function onClick() {
-	              return _this2.quit();
-	            } },
-	          'DISCONNECT'
-	        )
+	        { className: 'probe-graph' },
+	        _react2.default.createElement(_reactChartjs.Line, { data: data, options: options, width: 100, height: 20 })
 	      );
 	    }
 	  }]);
 
-	  return Settings;
+	  return Chart;
 	}(_react2.default.Component);
 
-	exports.default = Settings;
+	exports.default = Chart;
 
 /***/ },
 /* 181 */
@@ -51683,8 +51627,6 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactChartjs = __webpack_require__(181);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51693,59 +51635,116 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Chart = function (_React$Component) {
-	  _inherits(Chart, _React$Component);
+	var Settings = function (_React$Component) {
+	  _inherits(Settings, _React$Component);
 
-	  function Chart(props) {
-	    _classCallCheck(this, Chart);
+	  function Settings(props) {
+	    _classCallCheck(this, Settings);
 
-	    return _possibleConstructorReturn(this, (Chart.__proto__ || Object.getPrototypeOf(Chart)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this, props));
+
+	    _this.state = {
+	      info: ' ',
+	      token: _this.props.details.token,
+	      public_key: _this.props.details.public_key
+	    };
+	    return _this;
 	  }
 
-	  _createClass(Chart, [{
+	  _createClass(Settings, [{
+	    key: 'quit',
+	    value: function quit() {
+	      ipcRenderer.send('quit', {});
+	    }
+	  }, {
+	    key: 'save',
+	    value: function save() {
+	      if (this.state.token.length === 64 && this.state.public_key.length === 15) {
+	        ipcRenderer.send('saveSettings', {
+	          token: this.state.token,
+	          public_key: this.state.public_key
+	        });
+	        this.setState({
+	          info: 'Saved !'
+	        });
+	      } else {
+	        this.setState({
+	          info: 'Wrong token or public_key'
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'handleToken',
+	    value: function handleToken(event) {
+	      this.setState({ token: event.target.value });
+	    }
+	  }, {
+	    key: 'handleKey',
+	    value: function handleKey(event) {
+	      this.setState({ public_key: event.target.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var data = {
-	        labels: ['', '', '', '', '', ''],
-	        datasets: [{
-	          data: this.props.values,
-	          type: 'line',
-	          lineTension: 0,
-	          borderWidth: 1,
-	          pointRadius: 0,
-	          fill: false,
-	          borderColor: '#26e089'
-	        }]
-	      };
-	      var options = {
-	        legend: {
-	          display: false
-	        },
-	        scales: {
-	          xAxes: [{
-	            display: false
-	          }],
-	          yAxes: [{
-	            display: false,
-	            ticks: {
-	              beginAtZero: true,
-	              max: 200
-	            }
-	          }]
-	        }
-	      };
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'probe-graph' },
-	        _react2.default.createElement(_reactChartjs.Line, { data: data, options: options })
+	        { className: 'settings' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'logo' },
+	          _react2.default.createElement('img', { src: 'assets/logo-white_Keymetrics@2x.png' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text' },
+	          'To get token and public_key, visit ',
+	          _react2.default.createElement(
+	            'a',
+	            { href: 'https://app.keymetrics.io/', target: '_blank' },
+	            'Keymetrics'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text' },
+	          this.state.info
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'form' },
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'token', defaultValue: this.props.details.token, onChange: function onChange(event) {
+	              return _this2.handleToken(event);
+	            } }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'public_key', defaultValue: this.props.details.public_key, onChange: function onChange(event) {
+	              return _this2.handleKey(event);
+	            } }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this2.save();
+	              } },
+	            'SAVE'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'quit', onClick: function onClick() {
+	              return _this2.quit();
+	            } },
+	          'DISCONNECT'
+	        )
 	      );
 	    }
 	  }]);
 
-	  return Chart;
+	  return Settings;
 	}(_react2.default.Component);
 
-	exports.default = Chart;
+	exports.default = Settings;
 
 /***/ }
 /******/ ]);

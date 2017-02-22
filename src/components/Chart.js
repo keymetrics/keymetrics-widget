@@ -33,15 +33,14 @@ class Chart extends React.Component {
         yAxes: [{
           display: false,
           ticks: {
-            beginAtZero: true,
-            max: 200
+            beginAtZero: true
           }
         }]
       }
     }
     return (
       <div className="probe-graph">
-        <Line data={data} options={options} />
+        <Line data={data} options={options} width={100} height={20} />
       </div>
     )
   }
