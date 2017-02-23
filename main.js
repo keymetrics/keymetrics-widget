@@ -216,9 +216,17 @@ ipcMain.on('quit', (event, arg) => {
   process.exit(0);
 });
 
+var showed = false;
+
 // Get data when widget is open
 mb.on('show', () => {
-  if (tokens) {
+  if (km && !showed) {
+    showed = true;
+    km.realtime.init({
+      public_id: tokens.public_key,
+      endpoint: km.bucket.current_raw.node_cache.endpoints.web
+    });
+  } else {
     kmConfig(tokens);
     kmData();
   }
@@ -226,9 +234,9 @@ mb.on('show', () => {
 
 // Close km when widget is closed
 mb.on('hide', () => {
-  if (km) {
-    km.close();
-    km = null;
+  if (km && showed) {
+    showed = false;
+    km.realtime.unregister();
   }
 });
 
