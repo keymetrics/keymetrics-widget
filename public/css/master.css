@@ -268,7 +268,7 @@ html, body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Graph */
+/* Chart */
 
 .probe-graph {
   position: relative;
@@ -276,4 +276,11 @@ html, body {
   left: -20px;
   width: calc(100% + 40px);
   height: 40px;
+}
+
+/* Rotate */
+
+.rotate {
+  margin-top: 6px;
+  transform: rotate(180deg);
 }

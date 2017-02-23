@@ -33,13 +33,17 @@ class Process extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
+      rotate: true
     };
   }
 
   showProcess () {
     this.setState({
       show: !this.state.show
+    });
+    this.setState({
+      rotate: !this.state.rotate
     });
   }
 
@@ -57,7 +61,7 @@ class Process extends React.Component {
             <div className='process-header-logo'><img src={`assets/${this.props.details.status}.svg`} /></div>
             <div className='process-header-name'>{this.props.details.name}</div>
           </div>
-          <div className='process-header-arrow'><img src='assets/arrow.svg' /></div>
+          <div className={`process-header-arrow ${(this.state.rotate) ? 'rotate' : ''}`}><img src='assets/arrow.svg' /></div>
         </div>
         <div className='probes'>
           {probes}

@@ -21638,7 +21638,8 @@
 	    var _this = _possibleConstructorReturn(this, (Server.__proto__ || Object.getPrototypeOf(Server)).call(this, props));
 
 	    _this.state = {
-	      show: false
+	      show: false,
+	      rotate: true
 	    };
 	    return _this;
 	  }
@@ -21648,6 +21649,9 @@
 	    value: function showServer() {
 	      this.setState({
 	        show: !this.state.show
+	      });
+	      this.setState({
+	        rotate: !this.state.rotate
 	      });
 	    }
 	  }, {
@@ -21683,7 +21687,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'server-header-arrow' },
+	            { className: 'process-header-arrow ' + (this.state.rotate ? 'rotate' : '') },
 	            _react2.default.createElement('img', { src: 'assets/arrow.svg' })
 	          )
 	        ),
@@ -21803,7 +21807,8 @@
 	    var _this = _possibleConstructorReturn(this, (Process.__proto__ || Object.getPrototypeOf(Process)).call(this, props));
 
 	    _this.state = {
-	      show: false
+	      show: false,
+	      rotate: true
 	    };
 	    return _this;
 	  }
@@ -21813,6 +21818,9 @@
 	    value: function showProcess() {
 	      this.setState({
 	        show: !this.state.show
+	      });
+	      this.setState({
+	        rotate: !this.state.rotate
 	      });
 	    }
 	  }, {
@@ -21850,7 +21858,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'process-header-arrow' },
+	            { className: 'process-header-arrow ' + (this.state.rotate ? 'rotate' : '') },
 	            _react2.default.createElement('img', { src: 'assets/arrow.svg' })
 	          )
 	        ),

@@ -6,13 +6,17 @@ class Server extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
+      rotate: true
     };
   }
 
   showServer () {
     this.setState({
       show: !this.state.show
+    });
+    this.setState({
+      rotate: !this.state.rotate
     });
   }
 
@@ -28,7 +32,7 @@ class Server extends React.Component {
             <div className='server-header-logo'><img src='assets/server.svg' /></div>
             <div className='server-header-name'>{this.props.details.name}</div>
           </div>
-          <div className='server-header-arrow'><img src='assets/arrow.svg' /></div>
+          <div className={`process-header-arrow ${(this.state.rotate) ? 'rotate' : ''}`}><img src='assets/arrow.svg' /></div>
         </div>
         {processes}
       </div>
