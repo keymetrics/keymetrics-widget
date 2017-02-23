@@ -26,8 +26,8 @@ var mb = menubar({
 
 // Get home directory
 var getHome = () => {
-  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-}
+  return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+};
 
 // Read .keymetrics in home directory
 var readFile = () => {
@@ -35,22 +35,22 @@ var readFile = () => {
     fs.openSync(getHome() + '/.keymetrics', 'w');
   }
   return fs.readFileSync(getHome() + '/.keymetrics').toString();
-}
+};
 
 // Write .keymetrics in home directory
 var writeFile = (tokens) => {
+  var file;
   tokens = JSON.stringify(tokens);
   try {
-    var file = fs.writeFileSync(getHome() + '/.keymetrics', tokens);
-  }
-  catch (e) {
-    var file = null;
+    file = fs.writeFileSync(getHome() + '/.keymetrics', tokens);
+  } catch (e) {
+    file = null;
   }
   return file;
-}
+};
 
 // Put data in array to send it in callback
-var putData = (data, cb) => {
+var putData = (data, cb) => {
   for (var server in data.apps_server) {
     if (serversIndex.indexOf(server) === -1) {
       serversIndex.push(server);
@@ -70,7 +70,7 @@ var putData = (data, cb) => {
       if (charts[`cpu-${server}-${process}`] && charts[`cpu-${server}-${process}`].length > 10) {
         charts[`cpu-${server}-${process}`].shift();
       }
-      charts[`cpu-${server}-${process}`].push(data.mini_metrics[server][process].cpu[0])
+      charts[`cpu-${server}-${process}`].push(data.mini_metrics[server][process].cpu[0]);
 
       if (!charts[`mem-${server}-${process}`] || charts[`mem-${server}-${process}`].length === 0) {
         charts[`mem-${server}-${process}`] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -79,7 +79,7 @@ var putData = (data, cb) => {
         charts[`mem-${server}-${process}`].shift();
       }
 
-      charts[`mem-${server}-${process}`].push(data.mini_metrics[server][process].mem[0])
+      charts[`mem-${server}-${process}`].push(data.mini_metrics[server][process].mem[0]);
 
       servers[index].processes.push({
         status: (data.apps_server[server][process].status === 'online') ? 'online' : 'offline',
@@ -131,7 +131,7 @@ var putData = (data, cb) => {
     });
   }
   cb(servers);
-}
+};
 
 // Put execptions in array
 var putExceptions = (data) => {
@@ -144,7 +144,7 @@ var putExceptions = (data) => {
     }
     exceptions[server.process.server][server.process.name] += 1;
   });
-}
+};
 
 // Keymetrics config
 var kmConfig = (tokens) => {
@@ -153,21 +153,27 @@ var kmConfig = (tokens) => {
     public_key: tokens.public_key,
     realtime: true
   });
-}
+};
 
 // Get data from bus
 var kmData = () => {
   km.init((err, res) => {
-    if (err) {
-      return ;
+    if (err) {
+      return;
     }
 
     // Get exceptions
     km.bucket.Data.exceptionsSummary((err, body) => {
+      if (err) {
+        return;
+      }
       exceptions = body;
     });
 
     km.bucket.retrieve(tokens.public_key, (err, bucket) => {
+      if (err) {
+        return;
+      }
       bucketId = bucket._id;
     });
 
@@ -185,7 +191,7 @@ var kmData = () => {
       }
     });
   });
-}
+};
 
 // Save settings (Save button on Settings UI)
 ipcMain.on('saveSettings', (event, arg) => {
@@ -199,7 +205,7 @@ ipcMain.on('saveSettings', (event, arg) => {
   kmConfig(arg);
   kmData();
   mb.window.webContents.send('tokens', tokens);
-})
+});
 
 // Quit app (Disconnect link on Settings UI)
 ipcMain.on('quit', (event, arg) => {
@@ -208,7 +214,7 @@ ipcMain.on('quit', (event, arg) => {
     km = null;
   }
   process.exit(0);
-})
+});
 
 // Get data when widget is open
 mb.on('show', () => {
@@ -230,9 +236,8 @@ mb.on('hide', () => {
 mb.on('ready', () => {
   try {
     tokens = JSON.parse(readFile());
-  }
-  catch (e) {}
-  
+  } catch (e) {}
+
   mb.showWindow();
 
   // DOM ready
@@ -245,4 +250,4 @@ mb.on('ready', () => {
     event.preventDefault();
     open(url);
   });
-})
+});

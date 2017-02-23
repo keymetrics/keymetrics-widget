@@ -21617,10 +21617,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _Processes = __webpack_require__(179);
 
 	var _Processes2 = _interopRequireDefault(_Processes);
@@ -21702,10 +21698,10 @@
 	var Servers = function (_React$Component2) {
 	  _inherits(Servers, _React$Component2);
 
-	  function Servers(props) {
+	  function Servers() {
 	    _classCallCheck(this, Servers);
 
-	    return _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).call(this, props));
+	    return _possibleConstructorReturn(this, (Servers.__proto__ || Object.getPrototypeOf(Servers)).apply(this, arguments));
 	  }
 
 	  _createClass(Servers, [{
@@ -21742,10 +21738,6 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	var _Chart = __webpack_require__(180);
 
@@ -21918,10 +21910,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _reactChartjs = __webpack_require__(181);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -21935,10 +21923,10 @@
 	var Chart = function (_React$Component) {
 	  _inherits(Chart, _React$Component);
 
-	  function Chart(props) {
+	  function Chart() {
 	    _classCallCheck(this, Chart);
 
-	    return _possibleConstructorReturn(this, (Chart.__proto__ || Object.getPrototypeOf(Chart)).call(this, props));
+	    return _possibleConstructorReturn(this, (Chart.__proto__ || Object.getPrototypeOf(Chart)).apply(this, arguments));
 	  }
 
 	  _createClass(Chart, [{
@@ -51679,10 +51667,6 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
