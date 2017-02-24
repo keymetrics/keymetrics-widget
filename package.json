@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --watch",
     "start": "./node_modules/electron/cli.js .",
-    "build": "./node_modules/electron-packager/cli.js . Keymetrics-Widget --platform=all --arch=all"
+    "build": "./node_modules/electron-packager/cli.js . Keymetrics-Widget --all --icon=\"public/assets/icon.icns\""
   },
   "repository": "https://github.com/keymetrics/keymetrics-widget.git",
   "keywords": [
