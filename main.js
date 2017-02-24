@@ -31,9 +31,6 @@ var getHome = () => {
 
 // Read .keymetrics in home directory
 var readFile = () => {
-  if (!fs.existsSync(getHome() + '/.keymetrics')) {
-    fs.openSync(getHome() + '/.keymetrics', 'w');
-  }
   return fs.readFileSync(getHome() + '/.keymetrics').toString();
 };
 
@@ -42,6 +39,7 @@ var writeFile = (tokens) => {
   var file;
   tokens = JSON.stringify(tokens);
   try {
+    fs.openSync(getHome() + '/.keymetrics', 'w');
     file = fs.writeFileSync(getHome() + '/.keymetrics', tokens);
   } catch (e) {
     file = null;
@@ -148,11 +146,13 @@ var putExceptions = (data) => {
 
 // Keymetrics config
 var kmConfig = (tokens) => {
-  km = new Keymetrics({
-    token: tokens.token,
-    public_key: tokens.public_key,
-    realtime: true
-  });
+  if (tokens && tokens.token && tokens.public_key) {
+    km = new Keymetrics({
+      token: tokens.token,
+      public_key: tokens.public_key,
+      realtime: true
+    });
+  }
 };
 
 // Get data from bus
@@ -226,7 +226,7 @@ mb.on('show', () => {
       public_id: tokens.public_key,
       endpoint: km.bucket.current_raw.node_cache.endpoints.web
     });
-  } else {
+  } else if (tokens && tokens.token && tokens.public_key) {
     kmConfig(tokens);
     kmData();
   }
