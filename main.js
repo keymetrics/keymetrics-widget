@@ -1,4 +1,4 @@
-const {ipcMain} = require('electron');
+const {ipcMain, Menu} = require('electron');
 const menubar = require('menubar');
 const Keymetrics = require('keymetrics-api');
 const fs = require('fs');
@@ -242,6 +242,25 @@ mb.on('hide', () => {
 
 // App ready
 mb.on('ready', () => {
+  if (process.platform === 'darwin') {
+    Menu.setApplicationMenu(Menu.buildFromTemplate([
+      {
+        label: 'Edit',
+        submenu: [
+          { role: 'undo' },
+          { role: 'redo' },
+          { type: 'separator' },
+          { role: 'cut' },
+          { role: 'copy' },
+          { role: 'paste' },
+          { role: 'pasteandmatchstyle' },
+          { role: 'delete' },
+          { role: 'selectall' }
+        ]
+      }
+    ]));
+  }
+
   try {
     tokens = JSON.parse(readFile());
   } catch (e) {}
