@@ -1,6 +1,6 @@
 {
   "name": "km-widget",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "NodeJS monitoring",
   "main": "main.js",
   "scripts": {

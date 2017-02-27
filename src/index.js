@@ -30,22 +30,17 @@ class App extends React.Component {
           config: {
             token: arg.token,
             public_key: arg.public_key
-          }
+          },
+          settings: false
         });
       }
     });
   }
 
   show () {
-    if (this.state.settings) {
-      this.setState({
-        settings: false
-      });
-    } else {
-      this.setState({
-        settings: true
-      });
-    }
+    this.setState({
+      settings: !this.state.settings
+    });
   }
 
   render () {
@@ -54,7 +49,7 @@ class App extends React.Component {
     if (this.state.settings) {
       panel = <Settings details={this.state.config} />;
     } else {
-      panel = <Servers details={this.state.servers} test={this.state.test} />;
+      panel = <Servers details={this.state.servers} />;
     }
     return (
       <div className='container'>

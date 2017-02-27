@@ -108,7 +108,8 @@
 	            config: {
 	              token: arg.token,
 	              public_key: arg.public_key
-	            }
+	            },
+	            settings: false
 	          });
 	        }
 	      });
@@ -116,15 +117,9 @@
 	  }, {
 	    key: 'show',
 	    value: function show() {
-	      if (this.state.settings) {
-	        this.setState({
-	          settings: false
-	        });
-	      } else {
-	        this.setState({
-	          settings: true
-	        });
-	      }
+	      this.setState({
+	        settings: !this.state.settings
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -136,7 +131,7 @@
 	      if (this.state.settings) {
 	        panel = _react2.default.createElement(_Settings2.default, { details: this.state.config });
 	      } else {
-	        panel = _react2.default.createElement(_Servers2.default, { details: this.state.servers, test: this.state.test });
+	        panel = _react2.default.createElement(_Servers2.default, { details: this.state.servers });
 	      }
 	      return _react2.default.createElement(
 	        'div',
