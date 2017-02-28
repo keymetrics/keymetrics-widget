@@ -1,12 +1,12 @@
 {
-  "name": "km-widget",
+  "name": "keymetrics-widget",
   "version": "1.0.0",
   "description": "NodeJS monitoring",
   "main": "main.js",
   "scripts": {
     "dev": "webpack --watch",
     "start": "./node_modules/electron/cli.js .",
-    "build": "./node_modules/electron-packager/cli.js . Keymetrics-Widget --all --icon=\"public/assets/icon.icns\""
+    "build": "build -mwl"
   },
   "repository": "https://github.com/keymetrics/keymetrics-widget.git",
   "keywords": [
@@ -26,7 +26,6 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "electron": "^1.4.15",
-    "electron-packager": "^8.5.2",
     "webpack": "^1.14.0"
   },
   "dependencies": {
@@ -37,5 +36,8 @@
     "react": "^15.4.2",
     "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.4.2"
+  },
+  "build": {
+    "appId": "io.keymetrics.keymetrics-widget"
   }
 }
