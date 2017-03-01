@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --watch",
     "start": "./node_modules/electron/cli.js .",
-    "build": "build -mwl"
+    "build": "build --linux deb tar.xz --win --macos --x64 --ia32"
   },
   "repository": "https://github.com/keymetrics/keymetrics-widget.git",
   "keywords": [
@@ -17,7 +17,11 @@
     "widget",
     "nodejs"
   ],
-  "author": "Jimi M",
+  "author": {
+    "name" : "Jimi M",
+    "email" : "contact@keymetrics.io",
+    "url" : "https://keymetrics.io"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.23.0",
